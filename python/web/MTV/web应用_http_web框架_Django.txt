@@ -1,0 +1,73 @@
+一 web应用 程序
+c\s    b\s
+
+import socket
+
+def handle_request(client):
+
+    request_data = client.recv(1024)
+    print("request_data: ",request_data)
+
+    client.send("HTTP\1.1 200 OK\r\nstatus: 200\r\nContent-Type:text\html\r\n\r\n".encode("utf8"))
+    client.send("<h1>Hello, luffycity!<\h1><img src=''>".encode("utf8"))
+
+def main():
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(('localhost',8812))
+    sock.listen(5)
+
+    while True:
+        print("the server is waiting for client-connection....")
+        connection, address = sock.accept()
+        handle_request(connection)
+        connection.close()
+
+if __name__ == '__main__':
+
+    main()
+
+
+--------------------------------------
+二 http协议
+4大特性
+	1 基于TCP\IP
+	2 基于请求-响应模式
+
+		请求协议格式
+
+		方法 \URI\ 协议\1.1版本
+		\r\n
+		HOST:aaa		请求首部字段
+		\r\n\r\n
+		内容实体   
+		
+		
+		方法有 GET post
+		GET 提交的数据放在URL 之后 用?隔开 参数之间用&相连
+		GET 方法 有限制 大小 因为URL长度有限制 .......而post没有数据限制
+		get post 获取请求数据方式不同
+
+
+		响应协议格式
+		
+		HTTP\1.1 200 OK
+		Date: TRUE 
+		\r\n\r\n
+		<html>
+	
+
+	3 无状态保存
+	4 无连接
+
+三 wsgiref 模块
+
+四 Django
+	1 MVC和MTV模型
+	2 下载Django
+	3 Django-admin startproject mysite
+	4 python manage.py startAPP App01
+	5 python manage.py runserver IP:PORT 
+	demo示例 :时间显示
+		1 url.py
+		2 app01.views.py		

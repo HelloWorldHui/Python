@@ -1,0 +1,33 @@
+
+not null 不能为空
+null 可以为空
+
+default 默认值
+
+
+
+unique 是一种key 唯一键 加速查询
+创建多种方法 在id int 后面加 unique
+	二: constraint uk_name unique(name)
+
+
+primary key 主键
+没有主键的情况下 not null + unique 会当成主键
+主键多种方法:
+	1  id int not null unique  主键
+	2  id int primary key  主键
+	3  constraint pk_name primary key(id)  所有字段后单独设置 主键
+
+auto_increment 自动增长
+
+show variable like 'auto_incre%'
+
+
+
+外键
+foreign key
+
+foreign key(自己表id) references 另一张表的(id);
+
+
+truncate 表名;清零;

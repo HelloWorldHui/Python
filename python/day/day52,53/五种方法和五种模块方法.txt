@@ -1,0 +1,171 @@
+'''
+*****************
+class A:
+    def __fa(self):
+        print('from A')
+
+    def test(self):
+        self.__fa()
+
+
+class B(A):
+    def __fa(self):
+        print('from B')
+obj = B()
+
+print(obj.test())
+'''
+========================
+# 五重方法
+# s = 'ssssa'
+# print(s.index('a'))
+# print(len(s))
+# print(s.replace('s','c'))
+# print(s.startswith('s'))
+# print(s.count(s))
+
+# list
+# l = [1,2,3]
+# print(l.index(1))
+# print(l.pop(1))
+# print(l.append(1))
+# print(l.extend([22222,]))
+# print(l.insert(0,231))
+# print(l.pop(1))
+# print(l)
+
+# tuple
+# l = (1,2,3)
+# print(l.count(1))
+# print(max(l))
+# print(min(l))
+# print(len(l))
+# print(l.index(2))
+# print(type(l),l)
+
+# dict
+
+# d = {'a':1,'b':2}
+# print(d.keys())
+# print(d.values())
+# print(d.get('a'))
+# print(d.pop('a'))
+# print(d.items())
+
+# 集合  {}  无序不重复 不可哈希的
+# s= {1,2,3,4,2}
+# s.pop()
+# s.add(23)
+# s.remove(2)
+# s.clear()
+# s.update({1,2,2,2,2,2,2})
+# print(s)
+
+'''
+# 五中模块
+import os
+os.path
+os.pardir
+os.path.join()
+os.path.dirname()
+
+import re
+re.search()
+re.findall()
+re.match()
+re.finditer()
+
+import time
+time.time()
+time.sleep()
+time.gmtime()
+time.localtime()
+
+import random
+random.random
+random.randrange
+random.randint
+random.choices
+
+import json
+json.loads()
+json.dumps()
+json.load()
+json.dump()
+'''
+==============================
+"""
+class Base():
+    __name = 'hui'
+    def check(self):
+        print(self)
+        print(self.__name) #莫名其妙 打印hui 不打印xxx
+
+class A(Base):
+    __name = 'xxx'
+    # def check(self):
+    #     print(self.__name)
+
+a = A()
+a.check()  # 打印继承父级  的 __name = 'hui'
+"""
+
+=========================================
+struct 用法
+'''
+import struct
+n = 11111111
+b = struct.pack('i',n)
+print(b)
+
+new_n = struct.unpack('i',b)
+print(new_n[0])
+'''
+=================================
+OS七层协议
+物理层
+数据链路层
+网络层
+传输层
+表示层 
+会话层
+应用层
+======================
+什么是协程,进程,线程
+进程是一个正在执行的程序 
+线程 cpu最小的执行单位,线程共享进程中的资源,线程的创建的开销很小
+协程 单线程下的并发,又称微线程,由用户在应用程序级别来控制任务的切换,
+轻量级现成 ,充分利用IO 时间,提高线程的效率
+===========================================
+同步锁的作用及效果
+作用:保证了数据安全
+效果:保证了数据安全,牺牲了效率
+================================
+线程队列
+先进先出
+先进后出
+优先级队列
+put get get_nowait 
+
+from concurrent.futures import ThreadPollExecutor
+Map: 异步提交,但是传参只能是可迭代的数据类型
+Submit: 异步提交任务
+Shutdown: 锁定线程池,防止新的任务再进入线程池中
+Result: 获得异步执行任务的返回结果
+Add_done_allback : 回调函数,将执行任务的返回结果给回调函数进行处理
+==========================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

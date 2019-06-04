@@ -1,0 +1,192 @@
+
+
+
+'''
+from django.contrib.sessions.middleware  import  SessionMiddleware
+from django.contrib.sessions.backends import db
+SESSION_COOKIE_NAME=sessionid
+from  django.contrib.sessions.serializers import JSONSerializer
+
+# SESSION_COOKIE_NAME = 'sessionid'
+session_key = request.COOKIES.get(settings.SESSION_COOKIE_NAME) #全局环境中的
+'''
+
+
+
+class SessionMiddleware(MiddlewareMixin):
+    def __init__(self, get_response=None):
+        self.get_response = get_response   #       get_response = None
+        engine = import_module(settings.SESSION_ENGINE)   #     engine = db      SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+                            #db.SessionStore
+        self.SessionStore = engine.SessionStore     #  SessionStore =  class SessionStore(SessionBase):
+
+
+
+
+def process_request(self, request):
+
+    session_key = request.COOKIES.get(settings.SESSION_COOKIE_NAME)   #SESSION_COOKIE_NAME = 'sessionid' 空
+
+    request.session = self.SessionStore(session_key)  #实例化一个对象 传入 空
+    # self._session_key = session_key    导致实例化对象中的  _session_key   也为空
+
+
+# 中间件执行完成之后   执行某个 视图函数中的  request.session["k1"]="v1"
+# 自动执行 request.session    __setitem__ 方法
+
+    def __setitem__(self, key, value):
+        #       {}     # 'k1' = 'v1
+        self._session[key] = value     # 赋值  _session是一个空字典  {}['k1']='v1'
+
+#       找到 _session =    这个类的返回值  _get_session
+        _session = property(_get_session)  #   下面
+
+        #  找到   _get_session   方法   返回  空字典    {}
+        def _get_session(self, no_load=False):
+            """
+            Lazily load session from storage (unless "no_load" is True, when only
+            an empty dict is stored) and store it in the current instance.
+            """
+            self.accessed = True
+            try:
+                return self._session_cache
+            except AttributeError:
+                if self.session_key is None or no_load:
+                    self._session_cache = {}
+                else:
+                    self._session_cache = self.load()
+            return self._session_cache
+
+        _session = property(_get_session)
+
+
+
+
+        self.modified = True
+
+        执行完成之后
+        self._session[key] = value     # 赋值  _session是一个空字典  {}['k1']='v1'
+        accessed =True
+        modified = True
+
+
+
+def process_response(self, request, response):
+    """
+    If request.session was modified, or if the configuration is to save the
+    session every time, save the changes and set a session cookie or delete
+    the session cookie if the session has been emptied.
+    """
+    try:
+        accessed = request.session.accessed  #     accessed =True
+        modified = request.session.modified  #    modified = True
+        empty = request.session.is_empty()
+
+        def is_empty(self):  #   false
+            "Return True when there is no session_key and the session is empty."
+            try:
+                return not self._session_key and not self._session_cache#最终返回 false
+                #  not false and not true ------>    true  and  false
+            except AttributeError:
+                return True
+
+
+
+
+
+
+
+
+    except AttributeError:
+        pass
+    else:
+        # First check if we need to delete this cookie.
+        # The session should be deleted only if the session is entirely empty
+        if settings.SESSION_COOKIE_NAME in request.COOKIES and empty:
+            response.delete_cookie(
+                settings.SESSION_COOKIE_NAME,
+                path=settings.SESSION_COOKIE_PATH,
+                domain=settings.SESSION_COOKIE_DOMAIN,
+            )
+        else:
+            if accessed:
+                patch_vary_headers(response, ('Cookie',))
+            if (modified or settings.SESSION_SAVE_EVERY_REQUEST) and not empty:
+                if request.session.get_expire_at_browser_close():
+                    max_age = None
+                    expires = None
+                else:
+                    max_age = request.session.get_expiry_age()
+                    expires_time = time.time() + max_age
+                    expires = http_date(expires_time)
+                # Save the session data and refresh the client cookie.
+                # Skip session save for 500 responses, refs #3881.
+
+
+
+                if response.status_code != 500:
+                    try:
+                        request.session.save()
+
+
+                        '''
+                        def save(self, must_create=False):
+            
+                            if self.session_key is None:    #空 走创建 随机字符串
+                                return self.create()
+                                
+                                
+                                
+                            data = self._get_session(no_load=must_create)   # 从   _get_session   #获得 字典 {'k1':'v1','k2':'v2'}
+                            
+                            obj = self.create_model_instance(data)   #  创建一个 模型类  
+                            
+                            using = router.db_for_write(self.model, instance=obj)
+
+                        '''
+
+
+
+                        '''
+                        
+                def create(self):   创建完  随机字符串  继续走 save方法   并且  must_create=True 
+                    while True:
+                    self._session_key = self._get_new_session_key()
+                    try:
+
+                        self.save(must_create=True)
+                        
+                        
+                        '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    except UpdateError:
+                        raise SuspiciousOperation(
+                            "The request's session was deleted before the "
+                            "request completed. The user may have logged "
+                            "out in a concurrent request, for example."
+                        )
+                    response.set_cookie(
+                        settings.SESSION_COOKIE_NAME,
+                        request.session.session_key, max_age=max_age,
+                        expires=expires, domain=settings.SESSION_COOKIE_DOMAIN,
+                        path=settings.SESSION_COOKIE_PATH,
+                        secure=settings.SESSION_COOKIE_SECURE or None,
+                        httponly=settings.SESSION_COOKIE_HTTPONLY or None,
+                        samesite=settings.SESSION_COOKIE_SAMESITE,
+                    )
+    return response
+

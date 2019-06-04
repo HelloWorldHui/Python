@@ -1,0 +1,4 @@
+5 value属性控制
+                input,select,textarea,button
+	这些标签 有val方法 
+

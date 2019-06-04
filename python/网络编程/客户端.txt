@@ -1,0 +1,11 @@
+import socket
+client = socket.socket()
+client.connect(('127.0.0.1',8080))
+while 1:
+	s = input('ÊäÈëÄÚÈİ:')
+	client.send(s.encode('utf8'))
+	if s == '88':
+		break
+	msg = client.recv(1024).decode('utf8')
+	print(msg)
+client.close()

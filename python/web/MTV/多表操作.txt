@@ -1,0 +1,64 @@
+  多表操作
+           
+            单表操作
+             book
+
+            id    title    publish   publish_email      publish_addr               
+             1     go       AAA          123               beijing  
+             2     java     AAA          123               beijing  
+            
+            多表操作 
+             
+             一对多: 关联字段在"多"的表中
+                 book
+                 id  title  publish_id     
+                  1   java       1
+                  2   go         1
+                 
+                 
+                 publish
+                 id name  email addr
+                  1  AAA   123  bejing
+             
+             多对多创建关系表
+                 Book
+                 id  title  publish_id     
+                  1   java       1
+                  2   go         1
+                 
+                 
+                  Author
+                  id name  
+                  1  alex
+                  2  yuan
+                  
+                  
+                  book2author
+                  
+                  id book_id  author_id
+                   1   1         1
+                   2   1         2
+                   3   2         2
+                   
+                   
+                   create table book2author(
+                       id  primary key auto_increment,
+                       book_id INT,
+                       author_id INT,
+                       foreignkey book_id references Book(id),
+                       foreignkey author_id references Author(id),
+                       
+                   )
+                   
+            一对一:关联字段可以建立在任意表下,但必须唯一约束
+                  Author
+                  id name  ad_id(unique约束)
+                  1  alex    1
+                  2  yuan    2
+                  
+                  AuthorDetail
+                  id gender   addr       gf    ID      author_id
+                   1   male   beijing   铁锤   131        1
+                    
+                   2   male   beijing   钢弹    151       2
+                    

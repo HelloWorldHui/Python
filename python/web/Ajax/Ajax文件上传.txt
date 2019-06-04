@@ -1,0 +1,2 @@
+提交的文件不会放在 request.POST里面
+		会放在 request.FILES 里面

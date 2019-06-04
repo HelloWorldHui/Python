@@ -1,0 +1,70 @@
+处理丢失数据
+有两种丢失数据：
+- None
+- np.nan(NaN)
+
+
+
+#查看None的数据类型
+type(None)
+NoneType
+
+type(np.nan)
+float
+
+
+
+df.notnull/isnull().any()/all()
+
+
+condition = df.notnull().all(axis=1)
+condition
+df.loc[condition]
+
+
+df.dropna() 可以选择过滤的是行还是列（默认为行）:axis中0表示行，1表示的列
+
+
+df.drop(labels=3,axis=1)  #删除 3列
+
+
+df.dropna(axis=0)   #在drop系列的函数中  axis=0 行  1列
+
+
+
+
+(3) 填充函数 Series/DataFrame
+- ``fillna()``:value和method参数
+
+
+df.fillna(method='bfill',axis=1) # 行前边的数
+
+
+df.dropna(axis=1) # 空值所在的列删除 1删除列  0行
+
+df.fillna(method='ffill',axis=1)# 看空值 填充行后边的数
+
+df.fillna(value=1000) #全部空值改为 1000 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

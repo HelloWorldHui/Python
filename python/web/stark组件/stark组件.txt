@@ -1,0 +1,67 @@
+一 . setting设置 
+
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app01.apps.App01Config',  #
+    'app02.apps.App02Config',  #
+    'stark.apps.StarkConfig',  #
+]
+
+二. app的models文件创建数据类
+
+Tools-----> Run manage.py Task...
+makemigrations    =======> python manage.py makemigrations
+migrate           =======> python manage.py migrate 
+
+
+三. 扫描(加载)每一个app中的stark.py
+stark======>apps.py
+
+from django.utils.module_loading import autodiscover_modules
+autodiscover_modules('stark') #自动扫描 所有stark.py 
+
+四. 注册
+from stark.service.strk import site 
+
+site.registre(Book,自定义配置类)
+self.model=====> 用户访问的model
+
+五. url配置 
+from stark.service.stark import site 
+path('stark/',site.urls)
+
+一级分发 二级分发 别名 反向解析
+model._meta.app_label 去访问时的 app名字
+model._meta.model_name  访问时 类的名字
+
+
+
+六. 列表展示页面
+表头
+表体
+勾选框
+
+
+七. list_display 默认情况 
+默认 勾选框  删除 按钮 
+
+
+八 . list_display_links
+编辑按钮 看用户有没有设置
+
+九 添加和编辑页面 modelform
+自动 渲染 验证字段是否符合
+删除页面 展示确认 取消 , 都跳转到 主界面\
+十. 分页功能
+十一. 搜索 
+	Q() 查询
+十二 . 批量操作
+初始化  和 批量删除
+十三. 多级过滤
+

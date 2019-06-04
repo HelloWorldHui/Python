@@ -1,0 +1,340 @@
+mysql -uroot -p
+
+安装mysql服务
+mysqld --install 
+net start mysql
+net stop mysql
+mysql remove
+show databases;
+use databases;
+
+select * from table;
+
+delimiter //  声明语句结束 //
+
+命令输错了 \c 结束 取消
+
+---------------------以下表操作------------------
+增
+	创建表
+	create table biao_name (id int);
+	create table 表名(字段名 类型 约束条件,
+			字段名2 类型 约束条件)
+删
+	drop table 表名;
+
+查看	
+	查看表
+	show tables;
+
+	查看表详细信息
+	show create table biao_name;
+	desc 表名;
+	describe 表名;
+	
+	查看表数据
+	select * from biao_name;
+	select id,name from 表名;  查看 id,name 数据
+
+插入数据 
+	insert into biao_name values(1),(2)
+	insett into biao_name(id) values(1),(2)
+
+--------------------------以下库操作-------------------------------
+
+
+增加库
+	create database 库名;
+	create database 库名 charset utf8;
+
+删除库
+	drop database 库名;
+	
+改库字符集
+	alter database 库名 charset utf8;
+
+查看库
+	show databases;
+	show create database biao_name\G;
+	select database();
+	
+进入库
+	(show databases;)
+	use+库名
+------------------------以下 行 操作---------------------------
+增(插入)
+	insert into 表名 values(1),(2)
+	insert into 表名(id) values(1),(2)
+	into可以不用写
+删
+	delete from 表名 where id=1; 删除id为1 的行
+查
+	select * from 表名; 查看所有数据  *所有
+	select id,name from 表名; 查看id,name
+改	
+	update 表名 set name= 'abc' where id=2; 把id等于2的行中的name改为abc
+	update 表名 set name = 'ABC'; 不指定where ,改表里面所有的name为ABC
+清空表
+	delete from 表名; 不会删除自增id 的记录
+	truncate table 表名; 数据量大,直接从零开始,速度快
+-------------------------------------------------------------------
+auto_increment 表示 自增;
+primary key 表示 主键 PRI 加速查找 不能重复不能为空
+
+	
+
+
+mysql 忘记密码解决方案 https://www.cnblogs.com/clschao/articles/9907529.html#part_2
+	mysql> set password for root@localhost = password('123');
+		mysqladmin -uroot -p旧密码 password 新密码
+
+
+查看字符集编码
+	\s
+	查看各个角色的编码(客户端,服务端,数据库等等)
+	show variables like "%char%"
+
+my.ini 配置修改字符集编码 https://www.cnblogs.com/clschao/articles/9907529.html#part_2
+	
+查看用户名 
+	select user();
+-----------------------------------修改表---------------------------------
+
+修改表名
+alter table 表名 rename 新表名
+
+增加字段
+	alter table 表名 add 字段名 数据类型 约束 , .....
+	alter table 表名 add 字段名 数据类型 约束 first;  添加字段 把他放在第一个位置
+	alter table 表名 add 字段名 数据类型 约束 after 字段名; 放在xxx 之后
+
+删除字段
+	alter table 表名 drop column 字段名;
+
+修改字段
+	alter table 表名 modify 字段名 数据类型 约束;
+	alter table 表名 change 旧字段名 新字段名 旧数据类型约束 新...... 改了字段民
+	alter table 表名 change 旧字段名 新字段名 新数据类型 约束;
+
+给一个字段添加外键属性 
+alter table 表2名 add foreign key(表2的一个字段) references 表1名(表1的一个字段)
+
+
+
+-----------------------------------------------------------------------------
+    UPDATE mysql.user SET password=password(‘123’) 
+        where user=’root’ and host=’localhost’; 
+	#这句话是对myslq这个库中的user表中的user字段为'root'并且host字段为'localhost'的这条记录的password字段的数据进行修改，
+	将passord字段的那个数据改为password('123')这个方法对123加工后的密码数据，
+	password()这个方法是mysql提供的密码进行加密用的方法。
+
+-----------------------------------------------------------------------
+设置外键
+foreign key(自己表的id) references 另一张表名字(id);
+----------------------------------
+truncate 表名;
+清零
+
+
+默认值
+default
+
+
+
+
+delimiter // 声明
+----------------------------
+创建视图
+create view 视图名称 as sql语句   
+
+删除视图
+drop view 视图名称
+
+
+创建触发器(触发器只支持增删改)
+delimiter //
+create trigger tri_after_insert_cmd after insert on cmd for each row
+begin 
+	if new.success = 'no' then
+		insert into errlog(err_cmd,err_time) values(new.cmd,new.sub_time);
+	end if;
+end //
+delimiter ;
+
+删除触发器
+drop trigger tri_after_insert_cmd;
+
+开启事务 
+start transaction;
+
+sql语句
+rollback; 回滚
+commit; 刷新到磁盘
+---------------------------------------------------------
+show create procedure 存储过程名字;
+---------------------------------------------
+
+创建简单存储过程(无惨)
+delimiter //声明
+create procedure p1()
+begin
+	select * from blog;
+	insert into blog(name,sub_time) values ('xxx',now());
+end // 
+delimiter ;
+
+call p1(); 调用
+
+python中基于pymysql
+cursor.callproc('p1')
+print(cursor.fetchall())
+
+
+--------------------------------
+有参  in out  inout 
+
+创建存储过程(有参)in
+delimiter //声明
+create procedure p2(in n1 int)
+begin 
+	select * from emp where id > n1;
+end //
+
+delimiter ;
+
+set @res = 0  #设置@res = 0
+call p2(@res)
+select @res; #查看@res的值
+
+
+python 基于pymysql
+cursor.callproc('p2',(0))
+print(cursor.fetchall())
+-------------------------------------------
+创建存储过程 out 返回值
+delimiter //
+create procedure p3( out res int)
+begin 
+	select * from emp ;
+	set res = 1;
+end //
+
+delimiter  ;
+
+set @res = 0;
+call p3(@res);
+select @res;
+
+在python中基于pymysql
+
+cursor.callproc('p3',(0))
+print(cursor.fetchall())
+cursor.execute('select @_p3_0')
+print(cursor.fetchall())
+
+cursor.close()
+conn.close()
+------------------------------------------
+	inout既可以传入又可以返回值
+delimiter //
+create procedure p4(inout n1 int)
+begin
+	select * from emp where id>n1;
+	set n1 = 1;
+end //
+delimiter ;声明
+
+set @x = 0
+call p4(@x);
+select @x;
+
+
+python中基于pymysql
+cursor.callporc('p4',(3))
+print(cursor.fetchall())
+cursor.execute('select @_p4_0;')
+print(cursor.fetchall())
+----------------------------------------
+执行存储过程
+----------------------------------------
+无参数
+call proc_name();
+----------------------------------------
+有参数 全in
+call procedure_name(1,2)
+------------------------------------------
+有参数 有in out inout
+set @t1 = 0;
+set @t2 = 1;
+call procedure_name(1,2,@t1,@t2)
+------------------------------------------
+python 中基于pymysql来执行存储过程
+import pymysql
+conn=pymysql.connect(host='127.0.0.1',
+		post= 3306,
+		user='root',
+		passwd='123',
+		db = 't1')
+cursor = conn.cursor(cursor=pymysql.cursors.DictCursor) #字典形式
+
+执行存储过程
+cursor.callproc('p1',(1,22,3,4))
+获取执行完成存储的参数
+cursor.execute('select @_p1_0')
+result = cursor.fetchall()
+
+#conn.commit()
+cursor.close()
+cursor.close()
+print(result)
+
+删除存储过程
+drop procedure proc_name;
+
+
+
+
+
+
+
+优先级
+from 从
+where 条件
+group by 分组
+having	过滤
+select 执行
+distinct 去重
+order by 排序
+limit 限制条数
+
+
+聚合函数
+count() 计数
+max() 最大值
+min() 最小值
+avg()平均值
+sum()求和
+
+
+exists表示存在 select * from emp where exists(select id from dep where id =2000);
+
+
+
+排序order by  xxx ASC ; 升序
+order by xxx DESC ; 降序
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

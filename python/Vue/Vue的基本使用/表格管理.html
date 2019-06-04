@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+    <script src=" https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script><!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .c1 {
+            height: 200px;
+            width: 500px;
+            background-color: lightgray;
+            position: absolute;
+            left: 350px;
+            top: 200px;
+        }
+
+        .c1 .c2 {
+            /*background-color: red;*/
+            height: 150px;
+            width: 250px;
+            position: absolute;
+            left: 125px;
+            top: 25px;
+        }
+
+        .c1 .c2 div {
+            padding: 5px 2px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<div id="a1" class="col-md-4">
+    <div class="c1" :class="myclass">
+        <div class="c2">
+            <div>
+                <span>商品标题:</span>
+                <input type="text" v-model="caption">
+            </div>
+
+            <div>
+                <span>商品数量:</span>
+                <input type="text"  v-model="number">
+            </div>
+
+            <div>
+                <span>商品价格:</span>
+                <input type="text" v-model="price">
+            </div>
+
+            <br>
+            <button @click="func_save">保存</button>
+            <button @click="func_cancel">取消</button>
+        </div>
+    </div>
+
+    <button @click="myclass.hide=!myclass.hide">添加</button>
+    <table class="table table-bordered ">
+        <thead>
+        <tr>
+            <th v-for="item in title">{{item}}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr v-for="(item,index) in content ">
+            <td>{{index+1}}</td>
+            <td>{{item.caption}}</td>
+            <td>{{item.number}}</td>
+            <td>{{item.price}}</td>
+            <td>
+                <button @click="func_edit(index)">编辑</button>
+                <button @click="content.splice(index,1)">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    let vm = new Vue({
+        el: '#a1',
+        data: {
+            myclass:{
+                hide:true
+            },
+            title: ['商品id', '商品标题', '商品数量', '商品价格', '操作'],
+            content: [
+                {'caption': 'python入门', 'number': 3, 'price': 300},
+                {'caption': 'python进阶', 'number': 4, 'price': 400},
+                {'caption': 'python高级', 'number': 5, 'price': 500},
+                {'caption': 'python究极', 'number': 6, 'price': 600},
+            ],
+            index : '',
+            caption:'',
+            number:'',
+            price:'',
+        },
+        methods:{
+            func_save:function () {
+                this.myclass.hide=true;
+                if (this.index !== '') {
+                    this.content[this.index]['caption']=this.caption;
+                    this.content[this.index]['number']=this.number;
+                    this.content[this.index]['price']=this.price;
+                }
+                else {
+                this.content.push({'caption':this.caption, 'number':this.number, 'price':this.price,})}
+
+                this.index='';
+                this.caption='';
+                this.number='';
+                this.price=''
+            },
+            func_edit:function (index) {
+                this.index=index;
+                this.myclass.hide=false;
+                this.caption=this.content[index].caption;
+                this.number=this.content[index].number;
+                this.price =this.content[index].price;
+            },
+            func_cancel:function () {
+                this.myclass.hide=true;
+                this.index='';
+                this.caption='';
+                this.number='';
+                this.price=''
+            }
+        },
+    })
+</script>
+
+</body>
+</html>

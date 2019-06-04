@@ -1,0 +1,28 @@
+查看编码
+show variables like "%char%";  
+
+net stop start 
+net start start 
+		库操作
+
+	    增：create database db1 charset utf8; #创建一个库，可以指定字符集 　　　　　　
+
+　　　　　　查：show databases; #查看数据库中所有的库
+　　　　　　　　show create database db1; #查看单独某个库db1的信息 　　　　　　
+
+　　　　　　改：alter database db1 charset latin1; #修改库的字符集，注意语句的格式（其他语句也是这么个格式），
+		alter（修改） database（修改数据库） db1（哪个数据库） charset（字符集） latin1（改成哪个字符集） 　　
+	    删除: drop database db1; #删除数据库
+表操作
+
+
+show create table t1; #查看单表的创建信息
+
+desc t1；
+
+describe t1；#上下这两句是一样的结果
+
+
+改：alter table t1 modify name char(3);  #修改字段属性的，将name字段的char长度改为3，改完之后我们在用上面的show create table t1；desc t1；describe t1；来查看一下修改结果。
+
+　alter table t1 change name name1 char(2);

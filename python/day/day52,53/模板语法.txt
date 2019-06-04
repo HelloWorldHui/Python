@@ -1,0 +1,45 @@
+深度查询 句点符 .
+
+
+过滤器
+<p>{{ now|date:'Y/m/d' }}</p>  时间显示格式
+|default 		默认值   
+|filesizeformat   	文件大小
+|truncatechars:10 	字符长度 10
+|truncatewords:5 	单词数量 5
+|add:1			加1
+|add:-1			减1
+|safe   		加渲染 显示不是 字符串
+
+
+模板语法之标签内部变量
+
+forloop.counter 统计循环的次数
+forloop.first 返回bool值 
+forloop.last	返回bool值 
+
+自定义标签 load 导入 文件 py
+{{ num|multi_filter:2 }} # py文件中的方法
+
+{% load  customer_filter_tag %}
+
+
+<p>{{ num|multi_filter:2 }}</p>
+<p>{% multi_tag 4 7 2 %}</p>
+<p>{% multi_tag num 7 4 %}</p>
+
+====================================
+customer_filter_tag.py
+
+from django import template
+register = template.Library()   #register的名字是固定的,不可改变
+
+
+@register.filter
+def multi_filter(x,y):
+    return x*y
+
+@register.simple_tag
+def multi_tag(x,y,z):
+    return x * y * z
+==================================

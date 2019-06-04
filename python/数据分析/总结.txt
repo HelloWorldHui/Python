@@ -1,0 +1,46 @@
+# 导入 
+import numpy as np 
+import pandas as pd 
+from matplotlib import pyplot as plt
+from pandas import Series,DataFrame
+
+# 数据分析 
+一 numpy
+	1 切片:arr[行,列] 倒序:arr[::-1,::-1]
+	2 变形:reshape()
+	3 级联:concatnate()
+	4 切分:split(arr,[],axis=0)
+	5 广播机制:
+		给缺失维度补1
+		使用已有元素补充
+		缺失的数组只可以有一行或一列
+	排序:sort()
+二 Series
+	过滤空值
+	去重: unique()
+三 DataFrame
+	创建
+	索引:
+		取列:df[列]
+		取行:df.loc[行]
+		取元素:df.loc[行,列]
+	切片:
+		切列:df.loc[:,列]
+		切行:df[行]
+
+	空值检测和过滤
+		空值检测函数:isnull notnull any all
+		空值过滤思路
+		空值过滤函数: dropna()
+		空值填充: fillna()
+		检测重复行: duplicated(keep = 'first')
+		过滤重复行: drop_duplicated()
+		随机取样: take(axis=0,[隐式索引])
+		级联机制: concat()
+		合并机制: merge(left,ringht,on='',how='')
+		替换: replace(to_replace='',value='') df.replace(to_replace={'列':'值'},value='xxx')
+		映射: df['列'].map()  df['列'].apply()
+		分组: df.groupby(by='')[''].mean()
+		分组聚合: apply() transform()
+		条件查询函数: query('')
+

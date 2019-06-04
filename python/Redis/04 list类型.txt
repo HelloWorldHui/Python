@@ -1,0 +1,53 @@
+列表的元素类型为string
+
+在左侧插?数据
+lpush key value1 value2 ...
+lpush lst a b c
+
+在右侧插?数据
+rpush rst 1 2 3 
+
+
+在指定元素的前或后插?新元素
+linsert key before或after 现有元素 新元素
+
+在键为 a1 的列表中元素 b 前加? 3
+linsert a1 before b 3
+
+------------
+列表修改操作
+
+lset key index value
+修改键为 a1 的列表中下标为 1 的元素值为 z
+lset a 1 z
+
+-------------
+
+列表删除
+删除指定元素
+将列表中前 count 次出现的值为 value 的元素移除
+count > 0: 从头往尾移除
+count < 0: 从尾往头移除
+count = 0: 移除所有
+lrem key count value
+
+右添加
+lpush a2 a b a b a b
+
+从 a2 列表右侧开始删除2个 b
+lrem a2 -2 b 
+
+
+查看列表 a2 的所有元素
+lrange a2 0 -1
+-------------------------
+
+
+
+
+
+
+
+
+
+

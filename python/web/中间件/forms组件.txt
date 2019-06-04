@@ -1,0 +1,95 @@
+
+
+1 forms组件  ******
+      语法:     is_valid()
+		cleaned_data
+		errors
+		
+
+
+
+
+
+                from django import forms # forms组件
+                class EmpForm(forms.Form):
+                    name=forms.CharField(min_length=5)
+                    age=forms.IntegerField()
+
+                from app01.models import  EmpForm
+                Traceback (most recent call last):
+                  File "<input>", line 1, in <module>
+                ImportError: cannot import name 'EmpForm'
+                from app01.views import  EmpForm
+                ef=EmpForm({"name":"yuan","age":23})
+                ef.is_valid()
+                False
+                ef=EmpForm({"name":"yuan123","age":23})
+                ef.is_valid()
+                True
+                ef=EmpForm({"name":"yuan123","age":23,"a":1})
+                ef.is_valid()
+                True
+                ef=EmpForm({"names":"yuan123","age":23,"a":1})
+                ef.is_valid()
+                False
+                ef.is_valid()
+                False
+                ef.cleaned_data
+                {'age': 23}
+                ef.errors
+                {'name': ['This field is required.']}
+                ef=EmpForm({"name":"yuan123","age":23,"a":1})
+                ef.is_valid()
+                True
+                ef.cleaned_data
+                {'name': 'yuan123', 'age': 23}
+                ef.errors
+                {}
+                ef=EmpForm({"name":"yuan123","age":23,"a":1})
+                ef.cleaned_data
+                Traceback (most recent call last):
+                  File "<input>", line 1, in <module>
+                AttributeError: 'EmpForm' object has no attribute 'cleaned_data'
+                ef.is_valid()
+                True
+                ef.cleaned_data
+                {'name': 'yuan123', 'age': 23}
+                ef.errors
+                {}
+
+
+
+     1 校验数据(******)
+           
+        
+     2 渲染模板
+              1 代码简单
+              2 命名规范
+              3 显示错误信息
+     
+     3 钩子;灵活定制的校验规则
+            form=EmpForm({"name":"alex","age":23})
+     
+     
+     
+            is_valid的源码; 
+            form对象:self
+            self._errors = ErrorDict()
+            self.cleaned_data = {}
+            
+             #  循环校验每一个字段
+             #  self.fields:       {"name":name规则对象,"age":age规则对象,"salary":salary规则对象}
+             
+            for name, field in self.fields.items():
+           
+                try:
+                     value={"name":"alex","age":23}.get(name) # "alex"
+                     value = field.clean(value)
+                     self.cleaned_data[name] = value
+                     if hasattr(self, 'clean_%s' % name):
+                            value = getattr(self, 'clean_%s' % name)()
+                            self.cleaned_data[name] = value
+                except ValidationError as e:
+                    self.add_error(name, e)
+                    
+         

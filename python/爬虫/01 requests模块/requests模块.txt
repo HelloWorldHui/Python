@@ -1,0 +1,39 @@
+#  基本请求
+import requests 
+url = 'https://www.jd.com/'
+
+res = requests.get(url)
+
+with open('jd.html','w',encoding='utf8') as f:
+	f.write(res.text)
+
+
+
+#                    headers={
+#         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36'
+
+
+
+w =====>>> res.text
+wb=====>>> res.content
+
+res.get(url,headers=headers,cookies=cookies)
+
+
+# post 有data 和json     默认 data 
+requests.post(url="/login/",headers={},cookies={},params={"next":"index"},data={},json={})
+
+# 没有指定请求头,#默认的请求头:application/x-www-form-urlencoed
+# 默认的请求头:application/json
+
+
+不知道网站编码 情况
+# print(response.text)  #html文档
+# print(response.content) # b'bytes......'
+# print(response.encoding)  #gb2312
+
+图片,音频,视频 
+wb res.content
+
+
+allow_redirects=False) 不重定向

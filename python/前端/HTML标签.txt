@@ -1,0 +1,123 @@
+<!DOCTYPE html>声明为HTML5文档。
+<html>、</html>是文档的开始标记和结束的标记
+<head>、</head>定义了HTML文档的开头部分
+<title>、</title>定义了网页标题
+<body>、</body>之间的文本是可见的网页主体内容
+
+<style></style>定义内部样式表 CSS
+
+<b>加粗</b>
+<i>斜体</i>
+<u>下划线</u>
+<s>删除线</s>
+
+<p>段落标签</p> #独占一个段落
+
+<h1>标题1</h1>
+<h2>标题2</h2>
+<h3>标题3</h3>
+<h4>标题4</h4>
+<h5>标题5</h5>
+<h6>标题6</h6>
+
+<!--换行-->
+<br>
+
+<!--水平线--><hr> #就是单独个一个水平线
+
+
+
+内联标签：b、i、u、s
+块级标签：p、h1--h6、hr、div
+
+
+
+img标签
+<img src="图片的路径" alt="图片未加载成功时的提示" 
+title="鼠标悬浮时提示信息" width="宽" height="高(宽高两个属性只用一个会自动等比缩放)">
+
+
+
+a标签
+在新界面打开
+<a href="http://www.oldboyedu.com" target="_blank" >点我</a>
+
+input 标签
+
+
+type 属性
+
+
+text	        单行输入文本	<input type=text" />
+password	密码输入框（不显示明文）	<input type="password"  />
+date	        日期输入框	<input type="date" />
+checkbox	复选框	<input type="checkbox" checked="checked" name='x' />
+radio	        单选框	<input type="radio" name='x' />
+submit	        提交按钮	<input type="submit" value="提交" /> #发送浏览器上输入标签中的内容，配合form表单使用，页面会刷新
+reset	        重置按钮	<input type="reset" value="重置"  />  #页面不会刷新，将所有输入的内容清空
+button	        普通按钮	<input type="button" value="普通按钮"  />
+hidden		隐藏输入框	<input type="hidden"  />
+file		文本选择框	<input type="file"  /> （等学了form表单之后再学这个）
+
+placeholder ************* input 里面的内容
+<input type="text" placeholder="这是内容灰色">
+
+
+
+
+
+type属性：
+
+disc（实心圆点，默认值）
+circle（空心圆圈）
+square（实心方块）
+none（无样式）
+
+
+
+
+无序列表
+<ul type="disc">
+  <li>第一项</li>
+  <li>第二项</li>
+</ul> 
+
+有序列表
+
+<ol type="1" start="2">
+  <li>第一项</li>
+  <li>第二项</li>
+</ol>
+　　　　type属性： start是从数字几开始
+
+1 数字列表，默认值
+A 大写字母
+a 小写字母
+Ⅰ大写罗马
+ⅰ小写罗马
+
+
+
+　　　　3.标题列表（就像大纲一样，有一个层级效果）
+<dl>
+  <dt>标题1</dt>
+  <dd>内容1</dd>
+  <dt>标题2</dt>
+  <dd>内容1</dd>
+  <dd>内容2</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

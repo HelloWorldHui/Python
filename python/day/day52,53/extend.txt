@@ -1,0 +1,15 @@
+base
+{% block con %}
+	<p>我是模板内容区</p>
+{% endblock %}
+---------
+index
+{% extends 'base.html' %}
+
+{% block con %}
+	我是index的内容
+{% endblock %}
+
+========================
+
+路由分发

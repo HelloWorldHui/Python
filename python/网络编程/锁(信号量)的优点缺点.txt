@@ -1,0 +1,17 @@
+加锁 由并发变成了串行 牺牲效率 但是保证了数据安全
+from multiprocessing import Lock
+l = Lock()
+
+
+
+l.acquire() 加锁
+l.release() 释放锁
+
+
+信号量
+from multiprocessing import Semaphore
+
+sem = Semaphore(4) #四个房间 9个人 进去四个,出来一个 进去一个
+sem.acquire()
+
+sem.release()

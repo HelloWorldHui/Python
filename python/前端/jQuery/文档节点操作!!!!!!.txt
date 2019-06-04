@@ -1,0 +1,26 @@
+$tr = $('<tr>节点</tr>'); [tr;]
+
+$tr.append('<td><button class="del btn btn-danger btn-sm">删除</button></td>')
+
+$('.tbody').append($tr)
+
+
+
+$('#i1').remove();
+
+----------------------------------
+1创建节点
+$('<p></p>')
+
+2添加节点
+$('父节点').append($('<p></p>'))
+$('父节点').append("<p>123</p>")
+
+3
+删除节点
+$('删除节点').remove()
+$('删除节点').empty()
+
+4
+替换节点
+$

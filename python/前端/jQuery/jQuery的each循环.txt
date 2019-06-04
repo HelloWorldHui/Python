@@ -1,0 +1,13 @@
+  let arr=['a','b','c'];
+    $.each(arr,function (i,j) {
+        
+	if ($(this).html()=='yuan'){
+		return false //类似于break
+		return  类似于 continue  返回  undefine 
+
+	console.log(i,j)
+	}
+    })
+
+
+i,j 键值/索引值

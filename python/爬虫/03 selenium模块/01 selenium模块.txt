@@ -1,0 +1,114 @@
+selenium最初是一个自动化测试工具,而爬虫中使用它主要是为了解决requests无法直接执行JavaScript代码的问题 selenium本质是通过驱动浏览器，
+完全模拟浏览器的操作，比如跳转、输入、点击、下拉等，来拿到网页渲染之后的结果，可支持多种浏览器
+
+
+
+
+from selenium import webdriver
+from time import sleep
+from selenium.webdriver.common.keys import Keys
+
+		   /Chrome			驱动器位置
+driver = webdriver.Firefox(executable_path='F:/火狐/geckodriver')
+
+
+# ################################## 1 简单使用 # ##################################
+# 用get打开 百度页面
+# driver.get('https://www.baidu.com/')
+# sleep(2)
+# kw = driver.find_element_by_id('kw')  # 通过id为'kw' 查找
+# kw.send_keys('python')
+# # kw.send_keys(Keys.ENTER)   # 键盘 上的回车
+# search = driver.find_element_by_id('su')  # 找到百度一下
+# search.click()  # 点击
+# sleep(8)
+# ################################## 2 元素定位方法 # ##################################
+# driver.find_element_by_id()
+# driver.find_element_by_class_name()
+# driver.find_element_by_link_text()
+# driver.find_element_by_partial_link_text()#选择这个元素的link text中一部分字段。
+# driver.find_element_by_css_selector('.c1 p') # css 选择器
+# driver.find_element_by_xpath('//*[@id=i1]/a')# xpath
+************
+		结果是一个列表
+* search.find_elements_by_class_name()
+
+
+
+################  隐式等待:在查找所有元素时，如果尚未被加载，则等10秒
+# driver.implicitly_wait(10)
+
+
+
+
+############### 显示等待
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
+
+
+
+########################   节点信息
+
+print(content_left.tag_name)             # 节点名字       
+# print(content_left.get_attribute('id'))# 获取 节点 id 
+# print(content_left.size)               # 获取节点大小
+# print(content_left.location)		 # # {'x': 0, 'y': 133}
+
+
+
+######################################### 3节点交互 ###########################
+# driver.get('https://www.jd.com/')
+#
+# search = driver.find_element_by_id('key')
+# search.send_keys('python') # 输入 python
+# sleep(2)
+# search.clear()
+# search.send_keys('linux')
+# sleep(2)
+# search.send_keys(Keys.ENTER)  #按键 ENTER
+# sleep(1)
+################################# 4 动作链 #####################################
+# from selenium.webdriver import ActionChains
+# driver = webdriver.Firefox(executable_path='F:/火狐/geckodriver')
+#
+# url = 'http://www.runoob.com/try/try.php?filename=jqueryui-api-droppable'
+# driver.get(url)
+#
+# driver.switch_to.frame('iframeResult')
+#
+# source = driver.find_element_by_id('draggable')  # 找到要拖拽的节点
+# target = driver.find_element_by_id('droppable')  # 指定位置
+# actions = ActionChains(driver)        #
+# sleep(1)
+#
+# # actions.drag_and_drop(source,target) #拖拽起点 和 终点
+# actions.click_and_hold(source).perform()  # 执行 点击并 按住不松
+# sleep(1)
+# actions.move_to_element(target).perform()  # 执行 移动到 目标位置 
+# sleep(1)
+# actions.move_by_offset(xoffset=50,yoffset=0).perform() #执行 x移动 50 
+# sleep(2)  
+# actions.release()     # 重置
+# driver.close()    #关闭浏览器
+#################################### 5 执行JavaScript ##########################
+# driver = webdriver.Firefox(executable_path='F:/火狐/geckodriver')
+# driver.get('https://www.jd.com/')
+# driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
+# driver.execute_script('alert("Hello World!")')
+#
+# sleep(2)
+#####################################  cookie ##############################
+# from selenium import webdriver
+#
+# driver = webdriver.Firefox(executable_path='F:/火狐/geckodriver')
+# driver.get('https://www.zhihu.com/explore')
+#
+# print(driver.get_cookies())
+# driver.add_cookie({'name':'name','pwd':'123'})
+# print(driver.get_cookies())
+# driver.delete_all_cookies()
+# print(driver.get_cookies())
+

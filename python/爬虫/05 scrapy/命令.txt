@@ -1,0 +1,10 @@
+1 创建项目：scrapy startproject 项目名称
+2 创建爬虫程序:scrapy genspider 爬虫程序名
+3 启动爬虫程序:scpary crawl 爬虫程序名 
+4 持久化操作
+  >scrapy crawl qiubai -o qiubai.xml
+  >scrapy crawl qiubai -o qiubai.json
+
+setting
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
+ROBOTSTXT_OBEY = False

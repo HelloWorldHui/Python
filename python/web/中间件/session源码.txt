@@ -1,0 +1,79 @@
+1 中间件
+  
+        解析session中间件:
+             class SessionMiddleware(MiddlewareMixin):
+                    def __init__(self, get_response=None):
+                        self.get_response = get_response
+                        engine = import_module(settings.SESSION_ENGINE)
+                        self.SessionStore = engine.SessionStore
+
+                    def process_request(self, request):
+                        session_key = request.COOKIES.get(settings.SESSION_COOKIE_NAME)
+                        request.session = self.SessionStore(session_key)
+
+                    def process_response(self, request, response):pass
+            
+            一旦请求发生:
+            (1)  执行process_request:
+                     确定这次是否有sessionid对应的cookie值,赋值给self._session_key 
+                     request.session是SessionStore类的实例对象
+                     
+            (2)
+                def  视图函数:
+                      request.session["k1"]="v1"
+                      request.session["k2"]="v2"
+                      
+                def 视图函数2:
+                      request.session.get("k1")
+                
+                调用的request.session对象的setitem方法: 
+                
+                
+                class SessionBase():
+                
+                    def __setitem__():
+                        self._session[key] = value
+                        self.modified = True
+                    
+                    _session = property(_get_session)                    
+                    def _get_session(self, no_load=False):
+     
+                        self.accessed = True
+                        try:
+                            return self._session_cache
+                        except AttributeError:
+                            if self.session_key is None or no_load:
+                                self._session_cache = {}
+                            else:
+                                self._session_cache = self.load()
+                        return self._session_cache
+                        
+                        
+            (3) 执行 process_response:
+                        request.session.save()
+                        
+                        def save():
+                        
+                            # 创建随机字符串:
+                            self._session_key = self._get_new_session_key()
+                            # 创建对讲或者更新对象
+                            self.model(
+                                        session_key=self._get_or_create_session_key(),
+                                        session_data=self.encode(data),
+                                        expire_date=self.get_expiry_date(),
+                                        )
+                                                        
+                        # 设置cookie
+                        response.set_cookie(
+                            settings.SESSION_COOKIE_NAME,
+                            request.session.session_key, max_age=max_age,
+                            expires=expires, domain=settings.SESSION_COOKIE_DOMAIN,
+                            path=settings.SESSION_COOKIE_PATH,
+                            secure=settings.SESSION_COOKIE_SECURE or None,
+                            httponly=settings.SESSION_COOKIE_HTTPONLY or None,
+                            samesite=settings.SESSION_COOKIE_SAMESITE,
+                        )
+             
+
+
+2 配合中间件学习session的源码,用户认证组件

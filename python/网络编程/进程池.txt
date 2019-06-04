@@ -1,0 +1,28 @@
+from multiprocessing import Pool,Process
+p = pool(5) 异步执行
+p.map(fun,range(100))
+
+同步调用
+res = p.apply(work,args= (1,))
+
+异步调用
+res = p.apply_async(work,args(1,))
+res.get()
+
+Map(func,iter_obj)  #异步,map自带close和join
+
+
+=============================
+回调函数
+from multiprocessing import Process,Pool
+def f1(n):
+    return n*n
+
+def f2(n):
+    print(n)
+
+if __name__ == '__main__':
+    p = Pool()
+    p.apply_async(f1,args=(3,),callback=f2)
+    p.close()
+    p.join()

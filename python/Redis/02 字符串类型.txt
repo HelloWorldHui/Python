@@ -1,0 +1,18 @@
+设置键值
+	set key value
+
+设置键值及过期时间，以秒为单位
+	setex key seconds value
+	setex aa 3 aa
+
+设置多个键值
+mset key1 value1 key2 value2 ...
+mset a 1 b 2 
+
+例4：向键为 a1 中追加值 haha
+	append key value
+	append a1 haha
+
+根据多个键获取多个值
+mget key1 key2 ...
+

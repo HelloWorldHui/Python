@@ -1,0 +1,25 @@
+{% extends 'base.html' %}   继承了另一个模板
+  
+
+
+
+{% block con %}
+{{ block.super }} #不替换 
+<div>Hello World!</div>
+
+{% endblock %} 
+
+
+
+
+
+
+
+为了更好的可读性，你也可以给你的 {% endblock %} 标签一个 名字 。例如：
+
+{% block content %}
+...
+{% endblock content %}　　
+在大型模版中，这个方法帮你清楚的看到哪一个　 {% block %} 标签被关闭了。
+
+不能在一个模版中定义多个相同名字的 block 标签。

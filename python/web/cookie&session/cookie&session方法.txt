@@ -1,0 +1,58 @@
+﻿
+
+
+cookie与session
+
+
+cookie
+
+    response.set_cookie()
+    request.COOKIES
+
+session
+    request.session["k1"]="v1"
+    request.session.get("k1")
+    request.session.flush()
+
+
+===========================================
+
+
+
+    cookie:
+           1 每一个客户端浏览器针对每一个服务器维持信息的一个键值对结构
+           2 信息保存在客户端
+           3 每一次发请求都会带着这个类似于字典的结构  
+                  request.COOKIES
+                  res.set_cookie("k1","v1",12)
+           4 服务器可以读写cookie字典
+          
+    session:
+            1 写session
+               request.session["k1"]="v1"
+               request.session["k2"]="v2"
+                    过程:
+                         if not 钥匙:
+                             1 创建随机字符串
+                             2 在django-sesion表中创建记录
+                               session-key    session-data   
+                                随机字符串    {"k1":"v1","k2":"v2"} 
+                             3 res.set_cookie("sessionid",随机字符串)
+                         else:
+                             
+                             2 在django-sesion表中创建记录
+                               session-key    session-data   
+                                随机字符串    {"k1":"v1"} 
+                             3  更新
+            2 读session
+                request.session.get("k1")
+                     过程:  
+                         1 取钥匙   (request.COOKIES.get("sessionid"))
+                         2 在django-sesion表中查询记录:session-key=钥匙
+                         3 通过对象.k1将值返回
+            3 删除session
+                    request.session.flush()
+                     过程:  
+                         1 取钥匙   (request.COOKIES.get("sessionid"))
+                         2 在django-sesion表中查询记录:session-key=钥匙
+                         3 对象删除

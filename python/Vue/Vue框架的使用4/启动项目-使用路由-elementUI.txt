@@ -1,0 +1,67 @@
+cd 项目目录
+vue init webpack lufei
+
+cd lufei
+npm run dev (运行)
+
+安装路由 vue-router
+下载
+npm i vue-router -S
+
+---
+配置路由 
+在src目录下创建 router 创建 index.js
+
+---------------  index.js的代码
+
+import Vue from 'vue'
+import Router from 'vue-router'
+
+import Home from '../components/Home'
+
+Vue.use(Router);
+export default new Router({
+	// 设置路由模式为'history',去掉默认的#
+	mode:'history',
+	routes:[
+	// 路由列表
+	{
+	path:'/',
+	name:'home',
+	monponent:Home
+	
+	}
+	]
+})
+------------------  打开main.js 把router对象注册到vue中
+import router from './router/index'  <<<<<<<<<<<<<<<<
+
+new Vue({
+	el:'#app',
+	router,     <<<<<<<<<<<<<<<<<<<<<<
+	components:{ App },
+	template:'<App/>'
+})
+
+----------------------------
+App.vue 文件
+
+
+<template>
+	<div id='app'>
+		<router-view/>    <<<<<<<<<<<<<<<<<<<
+	</div>
+</template>
+
+----------------------
+安装 ElementUI
+npm i element-ui -S
+等同于  npm install element-ui --save
+
+--------------- elementUI 配置到项目中
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+// 调用插件
+Vue.use(ElementUI)
+
+

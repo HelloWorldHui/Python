@@ -1,0 +1,84 @@
+分页器Django
+一页十内容
+
+
+批量创建数据 
+创建书籍表
+====================
+random.randint(1,100)   随机整数
+
+视图函数
+批量创建数据
+for i in range(100): #创建100条数据 速度慢   
+	book.ojects.craeate() #相当于100条sql语句,insert into table_name values ()
+				#insert into table_name values ()
+
+sql
+insert into table_name values (),(),() 数据库插入数据
+
+============
+
+********************************
+批量创建数据语法
+
+book_list = []
+for i in range(100):
+	book = Book(title='',price='')
+	book_list.append(book) 
+book.objects.bulk_create(book_list)   #insert into table_name values (),(),() 数据库插入数据
+
+********************************
+
+分页器语法~~~~~~
+
+
+----------------------------
+实例化 = Paginator(book_list,10条数据)
+
+
+#分页器功能
+分页器 .num_pages 分页数
+       .cout    一共多少条数据
+       .page_range [1,11] 
+
+#  单页对象
+
+
+page= 分页器对象.get_page(1)
+
+page.object_list 第一页的数据
+
+
+for i in page:
+	print(i)    遍历第一页的数据
+
+
+page.has_next()   有没有下
+	.has_pervious()  有上?
+	.next_page_number() 下一页
+	.pervious_page_number() 上一页
+
+##############################################################
+
+
+
+
+
+删除没确认
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

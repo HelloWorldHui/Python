@@ -1,0 +1,28 @@
+HTML超文本标记语言
+
+没有逻辑
+
+
+
+<!DOCTYPE html>  声明是HTML5 文档
+<html lang="zh-CN">   #这个lang表示语言，zh-CN是中文的意思，就是说，你整个文档的内容以中文为主，如果以英文为主，就写成lang='en'
+
+<head> 
+  <meta charset="UTF-8">
+  <title>css样式优先级</title>
+</head>
+<body> 
+
+</body>
+</html>
+---------------------------------
+
+head 开头部分
+title 网页标题 HUI
+
+body 主体内容
+
+标签格式 严格封闭
+
+注释 ctrl + /
+

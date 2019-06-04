@@ -1,0 +1,120 @@
+深度查询:句点符 . 
+<h4>{{s}}</h4>
+<h4>列表:{{ l.0 }}</h4>
+<h4>列表:{{ l.2 }}</h4>
+<h4>字典:{{ dic.name }}</h4>
+<h4>日期:{{ date.year }}</h4>
+<h4>类对象列表:{{ person_list.0.name }}</h4>
+
+
+模板过滤器
+default 
+{{ obj|filter_name:param }}
+{{ 对象|过滤器名称:参数 }}
+
+
+default 如果变量是false或者为空,使用默认值
+{{ value|default:'nothing'}}
+
+length 返回值的长度,对字符串和列表都起作用
+{{ value|length }}
+
+filesizeformat
+{{ value|filesizeformat }}
+
+data
+如果 value=datetime.datetime.now()
+{{ value|date:"Y-m-d" }}　　
+
+slice 
+value='hello world'
+{{ value|slice:'2:-1' }}
+
+truncatechars
+截断字符数  "..."结尾
+{{ value|truncatechars:9 }}
+
+truncatewords 单词数
+
+
+safe告诉Django这段代码不必转义
+value="<a href="">点击</a>"
+{{ value|safe }}
+
+
+===========
+模板标签
+
+for标签
+遍历每一个元素
+{% for person in person_list %}
+    <p>{{ person.name }}</p>
+{% endfor %}
+
+{% for obj in list reversed %}反向完成循环。
+
+
+
+遍历一个字典：
+
+{% for key,val in dic.items %}
+    <p>{{ key }}:{{ val }}</p>
+{% endfor %}
+
+
+for索引可以通过forloop显示
+
+forloop.counter   从1开始 默认
+forloop.counter0  从0开始
+
+forloop.revcounter  倒过来 到1结束
+forloop.revcounter0 倒过来 有0 
+
+forloop.first 判断是否第一个 true/false
+forloop.last 最后一个
+
+
+for...empty   没有找到或者为空的时候执行 empty
+{% for person in person_list %}
+    <p>{{ person.name }}</p>
+
+{% empty %}
+    <p>sorry,no person here</p>
+{% endfor %}
+
+------------------ 
+if 标签   差不多
+{% if num > 100 or num < 0 %}
+    <p>无效</p>
+{% elif num > 80 and num < 100 %}
+    <p>优秀</p>
+{% else %}
+    <p>凑活吧</p>
+{% endif %}
+
+-------------
+with 
+使用一个简单地名字缓存一个复杂的变量，
+{% with f_name=person_list.0.name  %}   找到列表中第0个类对象的name = f_name
+    <p>{{ f_name }}</p>
+{% endwith %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

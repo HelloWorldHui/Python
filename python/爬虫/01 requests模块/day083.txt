@@ -1,0 +1,91 @@
+day83
+
+
+(1) Requests模块
+(2) 解析器(Xpath,BS)
+(3) selenium
+(4) mongodb/redis
+(5) scrapy
+(6) scrapy-redis
+
+
+
+一  Requests模块
+
+什么是爬虫?
+本质是一个自动化程序,一个模拟浏览器向某一个服务器发送请求获取响应资源的过程.
+
+
+http协议
+    请求方式:
+         1 get  :      查询数据
+         2 post :      提交数据,添加记录
+         3 put/patch:  更新数据
+         4 delete:     删除数据   
+
+     
+    请求协议格式：
+          请求首行
+          请求头
+          空行
+          请求体
+
+    请求头:
+          content-type
+          
+          浏览器------------------>服务器          
+          1 针对post请求(post请求才有请求体)
+          2 向服务器发送post请求有哪些形式:
+                form表单 (urlencoded编码格式)
+                    user=yuan
+                    pwd=123                    
+                Ajax（urlencoded编码格式）
+                     a=1
+                     b=2
+         
+              请求协议格式字符串
+              发送urlencoded编码格式数据
+              '''
+                  请求首行
+                  请求头
+                  content-type："urlencoded"
+                  空行
+                  请求体 #  user=yuan&pwd=123   urlencoded编码格式
+              '''
+              发送json数据
+               '''
+                  请求首行
+                  请求头
+                  content-type："json"
+                  空行
+                  请求体 #  {"user":"yuan","pwd":123}   json编码格式
+              '''
+              
+反爬措施：
+    1 UA反爬     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/login/-------》cookie{"s":1}
+
+/index/
+
+
+
+
+
+
+
+
+

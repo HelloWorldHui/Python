@@ -1,0 +1,11 @@
+插入cell  a之前 b之后
+删除 x
+y m 切换模式
+shift+enter 执行
+shift+tab 查看文档帮助
+
+
+卸载py36 环境变量
+
+安装py37 
+

@@ -1,0 +1,32 @@
+首先关闭2个Linux防火墙, 配置阿里云等操作
+
+1 xftp  上传项目
+
+2 下载 python3 
+
+3 安装虚拟环境 virtualenv  (安装virtualenvwrapper工具 方便管理虚拟环境)
+  导入相关使用的包 
+
+4  centos7 下安装配置 MariaDB ,Redis
+   配置MariaDB , Redis
+   允许root用户远程登录，并且给予所有数据库所有表的所有权限
+
+5 进入 虚拟环境 安装 uwsgi
+  创建配置文件 uwsgi.ini
+  使用uwsgi配置文件启动django项目
+  uwsgi uwsgi.ini 让django跑起来 (修改django中setting文件 ip port 为实际IP和端口)
+
+6 完成nginx的安装配置
+  配置nginx.conf 结合 uwsgi进行转发 
+  一个访问 django
+  一个访问 vue
+
+7 安装 node ,配置vue前端
+
+8 supervisor 守护进程工具(supervisor在python3下无法使用,去python2下载)
+  效果使项目保持运行
+
+  
+
+
+

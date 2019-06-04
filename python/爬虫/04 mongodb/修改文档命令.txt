@@ -1,0 +1,195 @@
+
+
+############################## 1 update的语法  ##############################
+
+update() 方法用于更新已存在的文档。语法格式如下：
+db.collection.update(
+   <query>,
+   <update>,
+   {
+     upsert: <boolean>,
+     multi: <boolean>,
+     writeConcern: <document>
+   }
+)
+参数说明：对比update db1.t1 set name='EGON',sex='Male' where name='egon' and age=18;  mysql修改
+
+
+
+query : 相当于where条件。
+update : update的对象和一些更新的操作符（如$,$inc...等，相当于set后面的
+upsert : 可选，默认为false，代表如果不存在update的记录不更新也不插入，设置为true代表插入。
+multi : 可选，默认为false，代表只更新找到的第一条记录，设为true,代表更新找到的全部记录。
+writeConcern :可选，抛出异常的级别。
+
+
+更新操作是不可分割的：若两个更新同时发送，先到达服务器的先执行，然后执行另外一个，不会破坏文档。
+
+############################## 2 覆盖更新  ##############################
+不会在原基础上改  而是一个新的覆盖
+
+
+ 
+#注意：除非是删除，否则_id是始终不会变的
+#1 :
+db.user.update({'age':20},{"name":"Wxx","hobbies_count":3})
+是用{"_id":2,"name":"Wxx","hobbies_count":3}覆盖原来的记录
+ 
+
+#2、一种最简单的更新就是用一个新的文档完全替换匹配的文档。这适用于大规模式迁移的情况。例如
+var obj=db.user.findOne({"_id":2})
+ 
+obj.username=obj.name+'SB'
+obj.hobbies_count++
+delete obj.age
+ 
+db.user.update({"_id":2},obj)
+
+
+
+############################## 3 局部更新  ##############################
+ 在原基础上修改   
+#设置：$set
+
+#1、update db1.user set  name="WXX" where id = 2
+db.user.update({'_id':2},{"$set":{"name":"WXX",}})
+ 
+#2、没有匹配成功则新增一条{"upsert":true}
+db.user.update({'_id':6},{"$set":{"name":"egon","age":18}},{"upsert":true})
+ 
+#3、默认只改匹配成功的第一条,{"multi":改多条}
+db.user.update({'_id':{"$gt":4}},{"$set":{"age":28}})
+db.user.update({'_id':{"$gt":4}},{"$set":{"age":38}},{"multi":true})
+ 
+#4、修改内嵌文档，把名字为alex的人所在的地址国家改成Japan
+db.user.update({'name':"alex"},{"$set":{"addr.country":"Japan"}})
+ 
+#5、把名字为alex的人的地2个爱好改成piao
+db.user.update({'name':"alex"},{"$set":{"hobbies.1":"piao"}})
+ 
+#6、删除alex的爱好,$unset
+db.user.update({'name':"alex"},{"$unset":{"hobbies":""}})
+
+############################## 4 自增或自减  ##############################
+ 
+#增加和减少：$inc
+ 
+#1、所有人年龄增加一岁
+db.user.update({},{"$inc":{"age":1}},{"multi":true})
+            {}所有   inc自增           多个
+
+#2、所有人年龄减少5岁
+db.user.update({},
+    {
+        "$inc":{"age":-5}
+    },
+    {
+        "multi":true
+    }
+    )
+
+
+############################## 5 添加删除数组内元素 ##############################
+1 从尾部删除    -1从头部删除
+
+ 
+#添加删除数组内元素：$push,$pop,$pull
+     
+往数组内添加元素:$push
+#1、为名字为yuanhao的人添加一个爱好read
+db.user.update({"name":"yuanhao"},{"$push":{"hobbies":"read"}})
+ 
+#2、为名字为yuanhao的人一次添加多个爱好tea，dancing
+db.user.update({"name":"yuanhao"},{"$push":{
+    "hobbies":{"$each":["tea","dancing"]}
+}})
+
+按照位置且只能从开头或结尾删除元素：$pop
+#3、{"$pop":{"key":1}} 从数组末尾删除一个元素
+ 
+db.user.update({"name":"yuanhao"},{"$pop":{
+    "hobbies":1}  
+})   # 最后一个 爱好
+ 
+#4、{"$pop":{"key":-1}} 从头部删除
+db.user.update({"name":"yuanhao"},{"$pop":{
+    "hobbies":-1}
+})   # 第一个爱好
+
+
+#5、按照条件删除元素,："$pull" 把符合条件的统统删掉，而$pop只能从两端删
+db.user.update({'addr.country':"China"},{"$pull":{
+    "hobbies":"read"}
+},
+{
+    "multi":true
+}
+)  # 满足条件的 删除 爱好 read
+
+
+
+
+
+
+
+
+(了解)
+############################## 6 避免重复添加 ##############################
+ 
+#避免添加重复："$addToSet"
+ 
+db.urls.insert({"_id":1,"urls":[]})
+ 
+db.urls.update({"_id":1},{"$addToSet":{"urls":'http://www.baidu.com'}})
+db.urls.update({"_id":1},{"$addToSet":{"urls":'http://www.baidu.com'}})
+db.urls.update({"_id":1},{"$addToSet":{"urls":'http://www.baidu.com'}})
+ 
+db.urls.update({"_id":1},{
+    "$addToSet":{
+        "urls":{
+        "$each":[
+            'http://www.baidu.com',
+            'http://www.baidu.com',
+            'http://www.xxxx.com'
+            ]
+            }
+        }
+    }
+)
+ 
+############################## 7 其它 ##############################
+ 
+#1、了解：限制大小"$slice"，只留最后n个
+ 
+db.user.update({"_id":5},{
+    "$push":{"hobbies":{
+        "$each":["read",'music','dancing'],
+        "$slice":-2
+    }
+    }
+})
+ 
+#2、了解：排序The $sort element value must be either 1 or -1"
+db.user.update({"_id":5},{
+    "$push":{"hobbies":{
+        "$each":["read",'music','dancing'],
+        "$slice":-1,
+        "$sort":-1
+    }
+    }
+})
+ 
+#注意：不能只将"$slice"或者"$sort"与"$push"配合使用，且必须使用"$each"　　
+
+
+
+
+
+
+
+
+
+
+
+
+

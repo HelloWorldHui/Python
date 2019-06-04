@@ -1,0 +1,31 @@
+
+
+
+
+
+day63 stark组件
+
+
+
+
+ 1 启动所有app下的stark.py文件
+             autodiscover_modules('admin', register_to=site)
+             
+ 2 注册模型类
+        class StarkSite():
+            def __init__(self):
+                    self._registry = {}  
+            def register(self, model, admin_class=None):
+                admin_class = admin_class or ModelStark
+                self._registry[model] = admin_class(model)
+         
+ 
+ 3 分发
+      
+      1  类对象查找变量顺序:    实例对象空间-------->类空间------>父类空间------>......
+      
+      2  
+        from app01.models import Book
+        Book._meta.get_field("title")
+        <django.db.models.fields.CharField: title>
+        Book._meta.get_field("title").verbose_name

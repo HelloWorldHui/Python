@@ -1,0 +1,129 @@
+
+Django基础轮廓
+    MTV+controller
+    
+    一 url分发系统:
+         1 简单使用
+               url(r'^articles/2003/$', views.special_case_2003),  # special_case_2003(request)
+               # url(r'^articles/(\d{4})/$', views.year_archive),  # year_archive(request,1999)
+               url(r'^articles/(\d{4})/(\d+)$', views.month_archive),  # month_archive(request,1999,12)
+                
+         2 有名分组
+               url(r'^articles/(?P<y>\d{4})/(?P<m>\d+)$', views.month_archive2),  # month_archive(request,y=1999,m=12)
+         
+         3 分发include
+               url('app/', include('app.urls')),
+         4 反向解析
+               在模板:     {% url '别名' %}
+               在py文件中:   _url=reverse("index")
+                
+    二 视图函数
+           
+         浏览器  ----------  服务器
+              '''
+               请求首行
+               请求头
+               请求体(post) # user=yuan&pwd=123
+
+              '''              
+           
+        1 请求对象request
+              # request;请求信息对象
+                print(request.method)
+                print(request.path)
+                print(request.GET)  
+                print(request.POST) # {"user":"yuan","pwd":123}
+                print(request.body) # 请求体原生数据   " user=yuan&pwd=123"
+                print(request.META)
+                print(request.get_full_path())
+                print(request.is_ajax())
+        
+        2 响应对象  
+               
+                1 Httpresponse("OK")
+                2 render(request,"index.html")  
+                       (1) 找文件,读文件
+                       (2) 渲染文件:将模板文件中的所有{{}},{%%}替换成标签 
+                3 重定向 redirect
+                  
+                                   
+    三 模板语法
+            1 渲染变量  {{val}}
+                 (1) 深度查询 {{val.}}
+                 (2) 过滤器  {{val|filter_name:参数}}
+                     {{now|date:"Y-m-d"}}
+                     
+                     常用过滤器: add  date default lenth slice  safe filesizeformat   
+                     
+            2 渲染标签  {%%}   
+                  {%for i in val%}
+                  {%endfor%}       
+                   
+                  {%if %}
+                  {%endif%}
+                  
+                  {%csrftoken%}                  
+        
+            
+            
+            3 自定义标签和过滤器
+                略
+                
+            4 模板继承(extends)
+              
+            
+ 今日内容:
+      模型层 : 数据库sql
+      
+      
+      
+      ORM:  object ralation mapping
+           
+           
+           sql  -------------  python代码
+            
+           表   -------------  类
+           字段 -------------  类属性
+           字段约束----------  类属性的约束对象
+           表记录------------  类的实例对象       
+           
+      优点:
+      1 符合python规范,将sql解耦于python代码
+      2 操作简单
+      3 数据模型的设计不需要依赖于特定的数据库，通过简单的配置就可以轻松更换数据库，这极大的减轻了开发人员的工作量，不需要面对因数据库变更而导致的无效劳动
+      
+      缺点:效率低一点      
+      
+           
+      
+           单表操作:
+                 项目的操作顺序:
+                     1 在models.py文件中创建表结构
+                        class Book(models.Model):
+                            id=models.AutoField(primary_key=True)
+                            title=models.CharField(max_length=32)
+                            price=models.DecimalField(max_digits=5,decimal_places=2)
+                            publish=models.CharField(max_length=32)
+                            pub_date=models.DateTimeField()
+
+                     2 连接数据库
+                        (1)先创建数据库bms
+                        (2)配置
+                                DATABASES = {
+                                    'default': {
+                                        'ENGINE': 'django.db.backends.mysql',
+                                        'NAME':'bms',     　　 　  # 要连接的数据库，连接前需要创建好
+                                        'USER':'root',　　　　　　  # 连接数据库的用户名
+                                        'PASSWORD':'',　　　　　　  # 连接数据库的密码
+                                        'HOST':'127.0.0.1',       # 连接主机，默认本级
+                                        'PORT'：3306    　　　     #  端口 默认3306
+                                    }
+                                 }
+                                
+                         (3)数据库迁移
+                            
+                            python manage.py  makemigrations
+                            python manage.py  migrate
+                            
+                            KEY: Django在执行迁移命令时只会为settings中install_app中的应用中的models创建表结构
+           

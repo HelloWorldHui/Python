@@ -1,0 +1,24 @@
+设置单个属性
+hset key field value
+hset user name xiaohong
+
+hmset key field1 value1 field2 value2 ...
+hmset u2 name xiaohongage 11
+
+获取指定键所有的属性
+hkeys key
+
+获取?个属性的值
+hget key field
+
+获取多个属性的值
+hmget key field1 field2 ...
+hmget u2 name age
+
+
+获取所有属性的值
+hvals key
+hvals u2	获取键 u2 所有属性的值
+
+删除属性，属性对应的值会被?起删除
+hdel key field1 field2 ...

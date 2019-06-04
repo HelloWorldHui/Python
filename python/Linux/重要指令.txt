@@ -1,0 +1,117 @@
+1 创建用户指令
+useradd hui
+passwd hui 
+
+id root
+
+2 创建目录指令
+mkdir -p /opt/hui/123  递归创建目录
+mkdir {m1,m2,m3} 同级创建目录
+
+3 vim
+
+4 修改网卡配置
+vim /etc/sysconfig/network-scripts/ifcfg-ens33
+
+5 查看普通文件 cat 文件
+
+6 > 重写
+ >> 追加
+
+7 rm 参数 文件名/目录
+      -i 需要确认删除
+      -f 强制删除
+      -r 递归删除
+rm -rf /
+
+8 find 
+find 需要查找的目录 -name 文件名 -type 文件类型
+文件类型 
+        d - 目录
+        l - 符号链接文件
+        f - 普通文件
+
+9 alias 别名
+alias rm="echo 'hello'"
+unalias rm 取消别名
+
+
+10 ps -ef 查看系统运行的程序
+
+11 netstat -tunlp  查看开放的端口 
+
+12 管道命令
+  ps -ef | grep redis  过滤运行的redis
+
+13  IP信息
+127.0.0.1  # 本机地址, 别人无法访问，只有本机才可以访问
+192.168.12.56 # 本机IP地址，别人可以访问
+localhost  # 本机主机名
+0.0.0.0    # 本机环回地址, 相当于127.0.0.1加上192.168.12.56
+
+14 which 命令语法
+
+
+15 scp 
+scp 【可选参数】 本地源文件 远程文件标记
+    -r :递归复制整个目录
+    -v:详细方式输出
+    -q:不显示传输进度条
+    -C：允许压缩
+which python   # 查看python运行的路径
+
+16 查看磁盘占用率
+df -h
+
+17 top 系统的运行情况
+
+18 wget 下载命令  
+wget 链接
+
+19 lrzsz 软件包
+yum install lrzsz
+rz   # 上传
+sz 文件名   # 下载指定文件
+
+20
+关机 init 0 
+重启 init 6 
+
+21 chmod 文件 
+
+chmod  777 1.py  # 修改所有人有所有权限
+4 读
+2 写
+1 执行
+
+
+22  软连接
+ln -s /opt/zhangqihang/lihua.py lihuadashuaige.py
+操作 lihuadashuaige.py 直接 修改 lihua.py
+
+23 tar解压命令
+tar 参数 文件
+    -z 使用gzip
+    -v 显示解压过程
+    -c 压缩问件
+    -x 解压文件
+    -f 指定文件
+tar -xvf  allpy.tar   # .tar 结尾
+tar -zxvf allpy.tar.gz # .gz 结尾
+ 
+23  kill命令
+kill -9 id
+pkill redis
+
+24 tree 目录结构
+
+25 crontab -e # 编辑计划任务
+crontab -e
+crontab -e 
+crontab -e 
+
+分时日月周  执行命令
+#每分钟执行一次命令
+* * * * * 执行命令
+0 1 * * * 每天一点
+* 1 * * * 每天一点的每分钟执行

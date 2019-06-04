@@ -1,0 +1,53 @@
+CBV -- class based view(基于类的视图)
+
+http协议:
+               get
+               post
+               put/patch
+               delete
+               head
+               option
+
+http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace'] 
+
+
+# path('login/', views.LoginView.as_view()),
+                                         
+LoginView.as_view()  ======> LoginView没有 父类找 >> 
+
+
+
+path('login/', View.view), #访问login 执行View.viwe()
+													return get()   self是LoginView
+ 返回 View.view  >>>>  >>>>>>>>>>>>>>>有人访问 执行返回 self.dispatch(request, *args, **kwargs)>>>>>>>>return self.request.method()
+
+
+
+
+
+
+
+
+class LoginView(View):
+    def get(self):
+        pass
+    def post(self):
+        pass
+
+-----------------------
+
+@classonlymethod
+   def as_view(cls, **initkwargs):
+        def view(request, *args, **kwargs):
+
+		return self.dispatch(request, *args, **kwargs)
+
+   return view
+-------------------------
+def dispatch(self, request, *args, **kwargs):
+
+        if request.method.lower() in self.http_method_names:
+            handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+        else:
+            handler = self.http_method_not_allowed
+        return handler(request, *args, **kwargs)

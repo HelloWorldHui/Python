@@ -1,0 +1,46 @@
+方便大家操作，将月份和参选人以及所在政党进行定义：
+months = {'JAN' : 1, 'FEB' : 2, 'MAR' : 3, 'APR' : 4, 'MAY' : 5, 'JUN' : 6,
+          'JUL' : 7, 'AUG' : 8, 'SEP' : 9, 'OCT': 10, 'NOV': 11, 'DEC' : 12}
+of_interest = ['Obama, Barack', 'Romney, Mitt', 'Santorum, Rick', 
+               'Paul, Ron', 'Gingrich, Newt']
+parties = {
+  'Bachmann, Michelle': 'Republican',
+  'Romney, Mitt': 'Republican',
+  'Obama, Barack': 'Democrat',
+  "Roemer, Charles E. 'Buddy' III": 'Reform',
+  'Pawlenty, Timothy': 'Republican',
+  'Johnson, Gary Earl': 'Libertarian',
+  'Paul, Ron': 'Republican',
+  'Santorum, Rick': 'Republican',
+  'Cain, Herman': 'Republican',
+  'Gingrich, Newt': 'Republican',
+  'McCotter, Thaddeus G': 'Republican',
+  'Huntsman, Jon': 'Republican',
+  'Perry, Rick': 'Republican'           
+ }
+ 
+ 1.读取文件usa_election.txt
+ 
+ 2.查看文件样式及基本信息
+ 
+ 3.【知识点】使用map函数+字典，新建一列各个候选人所在党派party
+ 
+ 4.使用np.unique()函数查看colums：party这一列中有哪些元素
+ 
+ 5.使用value_counts()函数，统计party列中各个元素出现次数，value_counts()是Series中的，无参，返回一个带有每个元素出现次数的Series
+ 
+ 6.【知识点】使用groupby()函数，查看各个党派收到的政治献金总数contb_receipt_amt
+ 
+ 7.查看具体每天各个党派收到的政治献金总数contb_receipt_amt 。使用groupby([多个分组参数])
+ 
+ 8. 将表中日期格式转换为'yyyy-mm-dd'。日期格式,通过函数加map方式进行转换
+ 
+ 9.得到每天各政党所收政治献金数目。  考察知识点：groupby（多个字段）
+ 
+ 10.【知识点】使用unstack()将上面所得数据中的party行索引变成列索引
+ 
+ 11.查看老兵(捐献者职业)DISABLED VETERAN主要支持谁  ：查看老兵们捐赠给谁的钱最多
+ 
+ 12.把索引变成列,Series变量.reset_index()
+ 
+ 13.找出各个候选人的捐赠者中，捐赠金额最大的人的职业以及捐献额  .通过query("查询条件来查找捐献人职业")

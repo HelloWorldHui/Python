@@ -1,0 +1,21 @@
+from multiprocessing import Process
+
+def f(n):
+	print(n)
+
+if __name__ == '__main__':
+	p = Process(target=f,args = (1,))
+	p.start()
+============================================
+from multiprocessing import Process
+
+class S(Process):
+	def __init__(self,n):
+		super.__init__()
+		self.n = n
+	def run(self):
+		print(self.n)
+
+if __name__ == '__main__':
+	p = S(1)
+	p.start()

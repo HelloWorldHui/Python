@@ -1,0 +1,316 @@
+行内样式不推荐
+<p style="color: red">Hello world.</p>
+
+
+内部样式
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p{
+            background-color: #2b99ff;
+        }
+    </style>
+</head>
+
+
+外部样式推荐使用****************
+
+<link href="mystyle.css" rel="stylesheet" type="text/css"/>  
+
+#现在写的这个.css文件是和你的html是一个目录下，如果不是一个目录，
+href里面记得写上这个.css文件的路径
+
+
+
+css 选择器
+
+元素选择器  (标签名 div span...)
+
+id 选择器 
+#id1 {color:red}
+<p id= 'id1'>     </p>
+------------
+类选择器
+.cls1{color:red}
+<p class= 'cls1'>     </p>
+
+-----------------------
+* 所有的标签
+
+--------------------
+子子孙孙
+li a 表示li中所有的a标签
+
+div>p 只找到 div下级中的p  下下级的不找 只找儿子 
+
+div+p 选择所有紧接着div 的p标签 毗邻选择器
+
+#i1~p li后面所有的兄弟p标签  弟弟选择器
+
+p[titile]{}  属性选择器
+<div title = 'n1'></div>
+
+[title^='hello'] 找到所有title 属性以hello 开头的元素
+
+/*找到所有title属性以hello结尾的元素*/
+[title$="hello"]
+
+/*找到所有title属性中包含（字符串包含）hello的元素*/
+[title*="hello"]
+
+/*找到所有title属性(有多个值或值以空格分割)中有一个值为hello的元素：*/
+[title~="hello"]
+
+-----------------------------------------------------
+分组和嵌套
+div,p  多个选择器逗号隔开
+.div p  .c1内部所有p标签
+-----------------------------------
+伪类选择器  css3 版本新加的特性
+
+未访问链接
+a:link
+
+已访问链接
+a:visited
+
+鼠标放上去的颜色
+a:hover
+
+点击时的颜色
+a:active
+
+/*input输入框获取焦点时样式*/
+input:focus {   #input默认的有个样式，鼠标点进去的时候，input框会变浅蓝色的那么个感觉
+  #outline: none;
+  background-color: #eee; #框里面的背景色
+}
+
+======================================================
+伪元素选择器   (不推荐使用)
+#将p标签中的文本的第一个字变颜色变大小
+p:first-lette
+ 
+before
+/*在每个<p>元素之前插入内容*/
+p:before{conten:'****'}
+
+之后加内容   去漂浮
+p:after{
+display:black;
+content:'';
+clear:both;
+}
+
+========================================================
+选择器的优先级
+元素选择器 1
+类选择器 2
+id选择器 3
+内联样式 4
+!important 强制生效
+===================================
+css属性相关
+块级标签可以设置宽度  内联标签宽度由内容来决定
+
+width 宽度
+height 高度
+
+字体属性
+font-family
+body {
+  font-family: "Microsoft Yahei", "微软雅黑", "Arial", sans-serif
+}
+
+
+字体大小
+font-size:16px; 
+
+字体粗细
+normal	默认值，标准粗细
+bold	粗体
+bolder	更粗
+lighter	更细
+100~900	设置具体粗细，400等同于normal，而700等同于bold
+inherit	继承父元素字体的粗细值
+===============================
+
+文本颜色
+1.十六进制值 - 如: ＃FF0000
+2.一个RGB值 - 如: RGB(255,0,0) 
+3.rgba(255,0,0,0.3) 第四个设置透明度
+
+-=====================================
+
+
+文字对齐
+text-align
+left	左边对齐 默认值
+right	右对齐
+center	居中对齐
+justify	两端对齐
+
+
+==========================
+text-decoration    超链接去下划线
+none	默认。定义标准的文本。
+underline	定义文本下的一条线。
+overline	定义文本上的一条线。
+line-through	定义穿过文本下的一条线。
+inherit	继承父元素的text-decoration属性的值。
+================================
+首行缩进
+p {
+  text-indent: 32px; #首行缩进两个字符，因为我记得一个字在页面上的默认大小为16px
+}
+===============================
+背景属性
+background-color:red  背景颜色
+background-image: URL('xxx.jpg');   背景图片
+
+background-repeat:no-repeat; 背景重复 不平铺 
+ repeat(默认):背景图片沿着x轴和y轴重复平铺，铺满整个包裹它的标签
+ repeat-x：背景图片只在水平方向上平铺
+ repeat-y：背景图片只在垂直方向上平铺
+ no-repeat：背景图片不平铺
+
+/*背景位置*/
+background-position: right top;
+/*background-position: 200px 200px;*/ 
+
+background:#ffffff url('1.png') no-repeat right top;  简写
+===================================
+边框
+边框属性
+border-width 宽度
+border-style 样式 solid 实线边框
+border-color 颜色
+
+#i1 {
+  border: 2px solid red;
+}
+
+
+边框样式
+none	无边框。
+dotted	点状虚线边框。
+dashed	矩形虚线边框。
+solid	实线边框。
+ 
+还可以单独设置一边的属性
+border-top-style:dotted;
+  border-top-color: red;
+  border-right-style:solid;
+  border-bottom-style:dotted;
+  border-left-style:none;
+
+=========================================
+
+border-radius:50%;  边角幅度 50圆形/椭圆
+==================
+
+display属性
+
+display:"none"	HTML文档中元素存在，但是在浏览器中不显示。一般用于配合JavaScript代码使用。
+display:"block"	默认占满整个页面宽度，如果设置了指定宽度，则会用margin填充剩下的部分。
+display:"inline"	按行内元素显示，此时再设置元素的width、height、margin-top、margin-bottom和float属性都不会有什么影响。
+display:"inline-block"	使元素同时具有行内元素和块级元素的特点。
+=============================================
+
+盒子模型
+
+
+margin 外边距
+padding 内填充
+border 边框
+content 内容
+
+margin-top:5px; 上
+  margin-right:10px; 右
+  margin-bottom:15px; 下
+  margin-left:20px; 左
+======================================
+
+float 漂浮
+三种取值  
+left 向左浮动
+right 向右浮动
+none 默认值 不浮动
+
+
+clear 不允许浮动
+left	在左侧不允许浮动元素。
+right	在右侧不允许浮动元素。
+both	在左右两侧均不允许浮动元素。
+none	默认值。允许浮动元素出现在两侧。
+inherit	规定应该从父元素继承 clear 属性的值。
+
+
+清除浮动
+overflow:hidden 
+
+
+微元素使用的较多
+.c1:after {
+	content:'';
+	display:block;
+	clear:both;
+}
+==============================
+overflow溢出属性
+
+visible	默认值。内容不会被修剪，会呈现在元素框之外。
+hidden	内容会被修剪，并且其余内容是不可见的。
+scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+auto	如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+inherit	规定应该从父元素继承 overflow 属性的值。
+
+overflow（水平和垂直均设置）
+overflow-x（设置水平方向，只出现x轴的滚动条）
+overflow-y（设置垂直方向，只出现y轴的滚动条）
+====================================
+
+定位 
+position
+static 默认值，无定位，
+
+relative（相对定位）
+即以自己原始位置左上角为参照物。有趣的是，
+即使设定了元素的相对定位以及偏移值，元素还占有着原来的位置，即占据文档流空间
+
+
+absolute（绝对定位） 
+设置为绝对定位的元素框从文档流完全删除，
+也会有父级标签塌陷的问题，并相对于最近的已定位祖先元素定位，
+如果元素没有已定位的祖先元素，那么它的位置相对于最初的包含块（即body元素）
+
+
+fixed（固定）不管页面怎么动，都在整个屏幕的某个位置
+
+
+z-index
+#i2 {
+  z-index: 999;
+}
+
+z-index 值表示谁压着谁，数值大的压盖住数值小的，
+只有定位了的元素，才能有z-index,也就是说，不管相对定位，绝对定位，固定定位，都可以使用z-index，而浮动元素float不能使用z-index
+z-index值没有单位，就是一个正整数，默认的z-index值为0如果大家都没有z-index值，或者z-index值一样，那么谁写在HTML后面，谁在上面压着别人，定位了元素，永远压住没有定位的元素。
+从父现象：父亲怂了，儿子再牛逼也没用
+
+
+
+
+----------------------
+opacity
+　　　　　　用来定义透明效果。取值范围是0~1，0是完全透明，1是完全不透明。
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,119 @@
+﻿day52
+
+上节回顾
+
+1 jquery的each循环
+     
+    $.each([111,222,333],function(i,j){
+        
+    })
+    $("p").each(function(){
+        $(this)
+    }) 
+ 
+2 节点操作
+    1 创建节点 $("<p>")    
+    2 添加节点 
+          $("父节点").append($("<p>"))
+          $("父节点").append("<p>123</p>")
+    
+    3 删除节点
+      $("删除节点").remove()
+      $("删除节点").empty()
+    
+    4 替换节点   
+      $("被替换节点").replaceWith("新节点")
+      
+    5 拷贝节点
+      $("拷贝节点").clone()    
+ 
+3 bootstrap
+  栅格系统(******)
+  表格
+  表单
+  按钮
+  模态对话框
+  导航栏
+  
+WEB
+   1 web应用程序
+       
+   2 http协议
+      https://www.baidu.com/s?ie=utf-8&f=8
+      URL:协议/域名:端口/路径?请求数据
+   
+      通信双方 浏览器,服务器应用程序
+                       
+      客户端的浏览器-----------------服务器应用程序
+
+      http协议特性:
+        1 基于TCP/IP协议
+        2 基于请求－响应模式
+        3 无状态保存(******)
+        4 无连接
+        
+      http协议格式:
+                           请求协议格式
+          客户端的浏览器----------------->服务器应用程序
+                        <----------------
+                           响应协议格式
+         请求协议格式:
+            "GET 路径?user=yuan&pwd=123 HTTP/1.1     # 请求首行 
+             user-agent: Windows NT Chrome,  # 请求头
+             accept-encoding: gzip, deflate, # 请求头
+             k1:v1,# 请求头
+             空行
+            "   
+            
+            "POST 路径?user=yuan&pwd=123 HTTP/1.1     # 请求首行 
+             user-agent: Windows NT Chrome,  # 请求头
+             accept-encoding: gzip, deflate, # 请求头
+             k1:v1,# 请求头
+             空行
+             user=yuan&pwd=123  # 请求体:存放请求数据(只有POST请求才有请求体)
+            "   
+         响应协议格式:
+         
+                "HTTP/1.1 200 OK         #  响应首行 
+                 content-length: 29878,  #  响应头
+                 date: Fri, 28 Dec 2018 01:43:30 GMT #  响应头
+                 server: JDWS/2.0        #  响应头
+                 空行
+                 响应体
+                "   
+                     
+   3 Django
+   
+    MVC
+        
+        C:   controller  控制器(url分发和视图函数) 
+        V:   存放html文件
+        M:   model:数据库操作
+    
+    MTV
+        url分发控制器
+        V:视图函数
+        Tempates:存放html文件
+        M:model:数据库操作
+        
+        
+    Django命令:
+        1 创建Django项目:  django-admin startproject mysite
+                    manage.py ----- Django项目里面的工具，通过它可以调用django shell和数据库等。
+                    settings.py ---- 包含了项目的默认设置，包括数据库信息，调试标志以及其他一些工作的变量。
+                    urls.py ----- 负责把URL模式映射到应用程序
+
+        2 创建一个应用:     python manage.py startapp app01
+                    views.py:  存放试图函数
+                    models.py: 存放数据库表
+        
+        3  项目启动
+            python manage.py runserver   127.0.0.1:8000        
+linux
+
+爬虫数据分析
+
+
+
+
+

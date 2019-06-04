@@ -1,0 +1,49 @@
+# 修改
+update emp set name='abc',age='12' where id=1;
+
+# 删除
+delete from emp where id = 1 ;
+
+# 删除所有数据
+delete from emp ;
+但是这个 下次id 还会是 自增以前的id
+
+truncate table emp ;  整体删除 速度比delete 快
+
+
+===========================================
+ ALTER TABLE 表名 
+                          RENAME 新表名;
+2. 增加字段
+      ALTER TABLE 表名
+                          ADD 字段名  数据类型 [完整性约束条件…], #注意这里可以通过逗号来分割，一下添加多个约束条件
+                          ADD 字段名  数据类型 [完整性约束条件…];
+3. 删除字段
+      ALTER TABLE 表名 
+                          DROP 字段名;
+
+4. 修改字段
+ALTER TABLE 表名          (MODIFY  字段名 数据类型 [完整性约束条件…] )
+                          CHANGE 旧字段名 新字段名 新数据类型 [完整性约束条件…];#这一句除了改了字段名，还改了数据类型、完整性约束等等的内容
+
+======================================
+
+
+
+
+
+----------------------------
+1 查看数据库
+show databases;
+show create database db1;
+select database();
+
+2 选择数据库
+USE 数据库名
+
+3 删除数据库
+DROP DATABASE 数据库名;
+
+4 修改数据库
+alter database db1 charset utf8;
+-----------------------------------

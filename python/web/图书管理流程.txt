@@ -1,0 +1,66 @@
+     图书管理系统请求流程:
+          
+
+               1 查看请求
+                 请求url:http://127.0.0.1:8000/books/
+                 请求方式:GET
+                 视图函数: 
+                         def  books():
+                                 queryset=models.Book.objects.all()
+                                 return render(request,"books.html",{"queryset":queryset})  # 渲染一个页面                        
+                              
+                  响应一个所有书籍的查看页面
+				  
+                2 添加请求
+				  请求url:http://127.0.0.1:8000/books/add/
+				  请求方法:GET   ///  POST
+				  视图函数: 
+						def addbook(request):
+							if request.method == 'POST':
+								# # 一
+								# title = request.POST.get('title')
+								# price = request.POST.get('price')
+								# publish = request.POST.get('publish')
+								# pub_date = request.POST.get('pub_date')
+								# book = models.Book.objects.create(title=title,price=price,
+								#                                   publish=publish,pub_date=pub_date)
+								# 二
+								data = request.POST.dict()
+								print(data)
+								data.pop('csrfmiddlewaretoken')
+								book = models.Book.objects.create(**data)   #数据库添加一条页面输入的信息
+								return redirect('/books/')    #  响应一个302状态  让浏览器重新发送一个 http://127.0.0.1:8000/books/
+							else:
+								return render(request,'addbook.html')   #GET 方法渲染一个 输入信息页面
+								响应一个输入信息页面
+					根据请求方法 响应不同 信息 
+					
+				3 删除
+				  请求 url :http://127.0.0.1:8000/books/delete/(\d+) #
+				  请求方法:get
+				  视图函数:
+						def delbook(request,del_id): #传入 删除信息数据库的ID
+							models.Book.objects.filter(nid=del_id).delete() #数据库删除信息
+							return redirect('/books/')  #重定向一个连接
+						响应一个http://127.0.0.1:8000/books/  页面
+					
+				4 修改
+					请求url :http://127.0.0.1:8000/books/edit/(\d+) 
+					请求方法:GET  // POST
+					视图函数:
+							def editbook(request,edit_book_id): #传入修改的ID
+								if request.method == 'GET':
+									edit_book = models.Book.objects.filter(nid=edit_book_id).first()
+									return render(request,'editbook.html',{'edit_book':edit_book}) #渲染一个页面,默认有原信息
+									#响应一个 修改信息页面
+								else:
+									title = request.POST.get('title')
+									price = request.POST.get('price')
+									publish = request.POST.get('publish')
+									pub_date = request.POST.get('pub_date')
+									
+									#数据库修改一条信息
+									models.Book.objects.filter(nid=edit_book_id).update(title=title,price=price,publish=publish,pub_date=pub_date)
+
+									return redirect('/books/') #重定向
+									# 响应一个302  浏览器发送 查看页面

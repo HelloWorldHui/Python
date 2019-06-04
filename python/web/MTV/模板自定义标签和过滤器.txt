@@ -1,0 +1,53 @@
+11111、在settings中的INSTALLED_APPS配置当前app，不然django无法找到自定义的simple_tag.
+
+22222、在app中创建templatetags模块(模块名只能是templatetags)
+
+333333、创建任意 .py 文件，如：my_tags.py
+====================================
+
+from django import template
+from django.utils.safestring import mark_safe
+ 
+register = template.Library()   #register的名字是固定的,不可改变
+ 
+ 
+@register.filter
+def filter_multi(v1,v2):
+    return  v1 * v2
+<br>
+@register.simple_tag
+def simple_tag_multi(v1,v2):
+    return  v1 * v2
+<br>
+@register.simple_tag
+def my_input(id,arg):
+    result = "<input type='text' id='%s' class='%s' />" %(id,arg,)
+    return mark_safe(result)
+===================================================
+44444444、在使用自定义simple_tag和filter的html文件中导入之前创建的 my_tags.py
+
+1
+{% load my_tags %}　
+=================================================
+5555555、使用simple_tag和filter（如何调用）
+
+
+
+-------------------------------.html
+{% load xxx %}  
+      
+# num=12
+{{ num|filter_multi:2 }} #24
+ 
+{{ num|filter_multi:"[22,333,4444]" }}
+ 
+{% simple_tag_multi 2 5 %}  参数不限,但不能放在if for语句中
+{% simple_tag_multi num 5 %}
+注意：filter可以用在if等语句后，simple_tag不可以
+
+1
+2
+3
+{% if num|filter_multi:30 > 100 %}
+    {{ num|filter_multi:30 }}
+{% endif %}

@@ -1,0 +1,11 @@
+语法 
+ from django import forms # forms组件
+class EmpForm(forms.Form):
+	name=forms.CharField(min_length=5)
+	age=forms.IntegerField()
+
+from app.models import EmpForm
+ef = EmpForm({'name':'yuan','age':23,'salary':111})
+ef.is_valid()   #判断是否符合
+ef.errors       #错误信息
+ef.cleaned_data #符合信息

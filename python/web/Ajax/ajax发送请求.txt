@@ -1,0 +1,86 @@
+客户端浏览器给服务器发请求的形式:
+         
+        1 地址栏输入url 回车  默认是get请求方式
+        2 form表单,用户点击submit按钮  
+                    --- get
+                    --- post
+        3 超链接标签(a标签)    默认是get请求方式
+        
+        4 Ajax请求
+               ---get
+               ---post
+               
+            (1) 异步
+            (2) 局部刷新
+	
+	    python:
+                json.dumps()
+                json.loads()
+            JS:
+                JSON.stringfy([])   --------  json字符串                 
+                JSON.stringfy({})   --------  json字符串                 
+                JSON.stringfy('')   --------  json字符串   
+
+                JSON.parse(json字符串)  ----> JS数据类型(数组,对象)   
+
+    
+	总结(KEY):
+            1  客户端浏览器通过执行一段JS代码向服务器发送请求,服务器路由对应的视图函数返回一个json字符串作为响应,
+               浏览器接受响应后会触发该ajax请求的回调函数success,参数为响应字符串,success内通过DOM操作讲结果反映到页面上,
+               实现局部刷新，不再向之前的请求会将响应覆盖整个页面上。
+               
+            2   ajax请求不要返回render，redirect这些响应，就返回json字符串的HttpResponse！
+
+=================================================
+
+
+    文件上传
+        form表单
+            
+            
+            
+        Ajax
+针对POST请求:    
+    contentType:
+          浏览器                                                           服务器
+          ''
+         请求首行 
+          ...                          ----------------------------->
+         contentType:"json"
+         请求体 # user=alex&pwd=123  
+                # {"user":"alex","pwd":"123"}
+          
+          ''
+          
+          
+          
+          Django:
+                if urlencoded:
+                       request.POST={request.body}
+                else:
+                       request.POST={}  
+
+        如何向服务器发送json数据:
+            
+             $(".ajax_btn2").click(function () {
+                $.ajax({
+                    url:"/put1/",
+                    type:"post",
+                    contentType:"json",
+                    data:JSON.stringify({
+                        a:1,
+                        b:2
+                    }),
+                    success:function (res) {
+                        console.log(res)
+                    }
+                })    
+
+            def put1(request):
+                print(request.POST)
+                print(request.body)
+
+                import json
+                data=json.loads(request.body.decode())
+                print(data,type(data))
+                return HttpResponse("OK")                

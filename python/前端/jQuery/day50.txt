@@ -1,0 +1,67 @@
+day50
+
+
+上节回顾
+
+   JS:
+      节点操作
+      强调:
+        document.getElementById();    // 一个dom对象
+        document.getElementsByClassName(); // 多个dom对象构成的数组
+        document.getElementsByTagName(); // 多个dom对象构成的数组
+        document.getElementsByName(); // 多个dom对象构成的数组
+        
+        dom.innerHTML        
+        dom.innerTEXT
+        dom.setAttribute("","")        
+        dom.getAttribute("") 
+        dom.classList.add("")        
+        dom.classList.remove("")
+        dom.style.样式=""
+        针对input,select,textarea:
+            dom.value        
+            dom.value=""  
+        节点操作:
+            1 创建节点:
+              var ele=document.creatElement("标签名")  # ele:dom对象
+            2 添加节点
+              p_ele.appendChild(ele)  # appendChild添加只能添加dom对象
+              p_ele.insertbefore(ele,s_ele)        
+            3 删除节点
+              p_ele.removeChild(子节点)
+            4 替换节点
+              p_ele.replaceChild("新节点","旧节点")
+            
+            示例:  二级联动
+
+        事件:
+            onfocus  获取焦点事件
+            onblur   失去焦点事件
+            onselect 选中文本值事件
+            onsubmit form表单的提交事件
+            onchange 内容替换事件            
+
+
+
+今日内容:  
+
+    1 jquery   $    # http://jquery.cuishifeng.cn/
+    
+    2 
+      查找标签
+          
+         1 选择器等同于CSS选择器
+         2 $("") 得到的一个集合,这个集合对象就是jquery对象,
+           
+           jquery对象和dom对象的关系
+           $()[]------>dom对象        
+           $(dom)------>jquery对象  
+         3 选择器:
+                      
+            
+      
+      操作标签
+
+今日作业:
+     1 代码敲一遍
+     2 tab切换jquery版本

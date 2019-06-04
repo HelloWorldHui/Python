@@ -1,0 +1,18 @@
+
+
+整数类型
+	int  ,tinyint,smallint,mediumint,bigint
+
+浮点型
+	定点数类型 DEC(DECIMAL)
+	浮点型 float double
+
+日期类型
+	DATE TIME DATETIME IMESTAMP YEAR
+
+字符串
+	char  varchar
+
+枚举类型与集合类型
+	枚举类型 enum('男','女')二选一
+	集合类型 set('a','b','c')三选多可以选

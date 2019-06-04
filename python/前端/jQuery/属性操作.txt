@@ -1,0 +1,55 @@
+<script>
+        $(function () {
+            // 1文本操作
+
+=========================================
+            // $("").html()  第一个的标签
+            //   $("").text()   所有的文本拼接一起
+            //   $("").html("参数")
+            //   $("").text("参数")
+		
+=========================================
+            // console.log($('p').html());
+            // console.log(document.getElementsByTagName("p")[0].innerHTML);
+            //
+            // console.log($('a').text());
+            // console.log(document.getElementsByTagName('a')[0].textContent)
+
+            // $('p').html('<a href="">123</a>'); //有渲染效果
+            // $('p').text('<a href="">1231</a>'); //没有渲染效果
+
+            // 2属性操作
+            // $().attr("")
+            //   $().attr("","")
+            //   $("p").attr("alex")
+            //   $("p").attr("alex","dsb")
+            //   $("p").removeAttr("class")
+		$('[属性="值"]')
+
+
+            // console.log($('p').attr('HUI'));
+            // console.log($('p').attr('HUI','123'));
+            // console.log($('p').attr('HUI'));
+            // console.log($('p').attr('HUI','234'));
+            // console.log($('p').attr('HUI'));
+            //
+
+            // $('p').removeAttr('class');
+            // console.log($('p').html());
+            // console.log($('p')[0]);
+
+            // 3class操作
+            console.log($("p")[0]);
+            $('p').addClass('c1 c3 c4');    所有的p标签都加 c1 c2 c3 
+            console.log($('p')[0]);
+
+            $('p').removeClass('c1 c3 c4');
+            console.log($('p')[0])
+
+
+
+
+
+
+        })
+    </script>

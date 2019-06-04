@@ -1,0 +1,29 @@
+<script src="jquery-3.3.1.js"></script>
+<script>
+    // <!--载入-->
+    // ready(fn) // 当DOM载入就绪可以查询及操作时绑定一个要执行的函数
+    // $(document).ready(function () {}) -------------> $(function () {})
+    $(function () {
+        // $().事件(function(){});
+        // $('ul li').click(function () {
+        //     alert(this.innerHTML)
+        //     // alert($(this).html())
+        //
+        // });
+
+    // 事件委派
+    // $('.box').on('click','li',function () {
+    //     alert($(this).html())
+    // });
+
+    $('ul').on('click','li',function () {
+        alert($(this).html())
+    });
+
+    // 事件绑定
+    $('.add').click(function () {
+        $('.box').append('<li> 789</li>')
+    })
+
+    })
+</script>

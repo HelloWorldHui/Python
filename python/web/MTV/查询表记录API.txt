@@ -1,0 +1,36 @@
+KEY queryset 数据类型
+
+BOOK.objects.all()    #返回queryset对象
+BOOK.objects.all().first()  #返回模型类对象
+BOOK.objects.all().last() #模型类对象
+filter ()  #返回queryset对象
+get() #模型对象
+exclude() #返回queryset对象   不包括
+count() #返回int
+order_by().reverse()
+exist() #返回布尔值
+values() #返回 queryset对象 [{},{}]
+values_list() #返回queryset对象 [(),()]
+
+distinct() #去重
+
+===================
+模糊查询
+filter(price__gt=100) 大于100
+filter(price__lt=100) 小
+
+filter(price__in=[100,200,300]) 在列表里面
+filter(title__startwith = 'py')
+
+3删除
+.delete()
+
+Entry.objects.all().delete()　　
+如果不想级联删除，可以设置为:
+pubHouse = models.ForeignKey(to='Publisher', on_delete=models.SET_NULL, blank=True, null=True)
+修改表纪录
+
+
+4更新
+.update()
+Book.objects.filter(title__startswith="py").update(price=120)

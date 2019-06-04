@@ -1,0 +1,137 @@
+下载Django 
+pip install Django
+
+创建一个Django project 
+Django-admin.py startproject mysite  #创建一个Django对象
+
+在mysite目录下创建应用
+python manage.py startapp app1     #创建一个Django  app 
+
+启动Django项目
+python manage.py runserver 8080   #启动Django  项目
+
+url
+from app1 import views     # 导入视图函数
+
+view
+from Django.shortcuts import render,HttpResponse,redirect #三剑客
+ 
+templates     #  html文件
+模板.html
+
+==========================================
+models  #模型  数据库表格
+
+
+ 1 在model.py文件中创建表结构
+                        class Book(models.Model):
+                            id=models.AutoField(primary_key=True)
+                            title=models.CharField(max_length=32)
+                            price=models.DecimalField(max_digits=5,decimal_places=2)
+                            publish=models.CharField(max_length=32)
+                            pub_date=models.DateTimeField()
+
+                     2 连接数据库
+                        (1)先手动创建数据库bms
+                        (2)配置
+                                DATABASES = {
+                                    'default': {
+                                        'ENGINE': 'django.db.backends.mysql',
+                                        'NAME':'bms',     　　 　  # 要连接的数据库，连接前需要创建好
+                                        'USER':'root',　　　　　　  # 连接数据库的用户名
+                                        'PASSWORD':'',　　　　　　  # 连接数据库的密码
+                                        'HOST':'127.0.0.1',       # 连接主机，默认本级
+                                        'PORT'：3306    　　　     #  端口 默认3306
+                                    }
+                                 }
+                                
+                         (3)数据库迁移
+                            
+                            python manage.py  makemigrations
+                            python manage.py  migrate
+                            
+                            KEY: Django在执行迁移命令时只会为settings中install_app中的应用中的models创建表结构
+===========================================
+
+python的类对象
+
+添加一条记录
+	方法一
+	book = book(title="python",price="1111",publish="人民出版社")
+	book.save()
+	
+	方法二
+	book.objects.create(title="python",price="1111",publish="黑球出版社")
+
+
+查询一条,多条记录:
+	queryset = book.objects.filter(price=1111)
+
+更新一条表记录:
+	book.objects.filter(id=1).update(price=8888)
+删除一条表记录:
+	book.objects.filter(id=2).delete()
+
+------------------------
+查询表记录
+all() 查询所有结果
+filter(**kwargs)  筛选条件匹配下的对象
+get(**kwargs)     筛选条件匹配下的对象,返回有且只有一个   , 超过一个或者没有都会报错
+exclude(**Kwargs)  包含了了与所给筛选条件不匹配的对象
+order_by(*field)  对查询结果排序
+reverse()         对查询结果反向排序
+count()           返回数据库中匹配查询(queryset) 的对象数量
+first()           返回第一条记录
+last()            返回最后一条记录
+exists()          如果queryset包含数据,就返回true 否则返回false
+values(*field)    返回一个valuequeryset 一个特殊的queryset,得到的不是一系列model的实例化对象,而是一个可迭代的字典序列
+values_list(*field) 他与values() 非常相似 它返回的是一个元组序列,values返回的是一个字典序列
+distinct()        去重
+--------------------------------
+基于双下划线的模糊查询　　
+
+Book.objects.filter(price__in=[100,200,300])
+Book.objects.filter(price__gt=100)
+Book.objects.filter(price__lt=100)
+Book.objects.filter(price__range=[100,200])
+Book.objects.filter(title__contains="python")
+Book.objects.filter(title__icontains="python")
+Book.objects.filter(title__startswith="py")
+Book.objects.filter(pub_date__year=2012)
+
+
+删除表记录
+Entry.objects.filter(pub_date__year=2005).delete()
+Entry.objects.all().delete()　　
+
+修改表记录
+Book.objects.filter(title__startswith="py").update(price=120)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

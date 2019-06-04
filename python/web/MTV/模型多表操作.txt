@@ -1,0 +1,218 @@
+class Book(models.Model):
+
+    nid = models.AutoField(primary_key=True)
+    title = models.CharField( max_length=32)
+    publishDate=models.DateField()
+    price=models.DecimalField(max_digits=5,decimal_places=2)
+
+    # 与Publish建立一对多的关系,外键字段建立在多的一方
+    publish=models.ForeignKey(to="Publish",to_field="nid",on_delete=models.CASCADE)
+
+
+    # 与Author表建立多对多的关系,ManyToManyField可以建在两个模型中的任意一个，自动创建第三张表
+    authors=models.ManyToManyField(to='Author',db_table='book2author') #第三张表名
+
+
+class Publish(models.Model):
+    nid = models.AutoField(primary_key=True)
+    name=models.CharField( max_length=32)
+    city=models.CharField( max_length=32)
+    email=models.EmailField()
+
+
+class Author(models.Model):
+    nid = models.AutoField(primary_key=True)
+    name=models.CharField( max_length=32)
+    age=models.IntegerField()
+
+    # 与AuthorDetail建立一对一的关系
+    authorDetail=models.OneToOneField(to="AuthorDetail",on_delete=models.CASCADE)
+
+
+class AuthorDetail(models.Model):
+
+    nid = models.AutoField(primary_key=True)
+    birthday=models.DateField()
+    telephone=models.BigIntegerField()
+    addr=models.CharField( max_length=64)
+
+
+
+表的名称myapp_modelName，是根据 模型中的元数据自动生成的，也可以覆写为别的名称　　
+ id 字段是自动添加的
+ 对于外键字段，Django 会在字段名上添加"_id" 来创建数据库中的列名
+ 这个例子中的CREATE TABLE SQL 语句使用PostgreSQL 语法格式，要注意的是Django 会根据settings 中指定的数据库类型来使用相应的SQL 语句。
+ 定义好模型之后，你需要告诉Django _使用_这些模型。你要做的就是修改配置文件中的INSTALL_APPSZ中设置，在其中添加models.py所在应用的名称。
+外键字段 ForeignKey 有一个 null=True 的设置(它允许外键接受空值 NULL)，你可以赋给它空值 None 。
+======================================================================================
+
+
+===========================   添加表记录  =============================
+一对多
+方式1
+publish_obj = Publish.objects.get(nid=1)
+book_obj = Book.objects.create(title='西游记',pub_date='2012-12-12',price=100,publish_id=1)
+
+
+方式2 
+book.obj=Book.objects.create(title='水浒传',publish='2012-12-12',price=200,publish=1)
+
+核心：book_obj.publish与book_obj.publish_id是什么？ 
+--------------------------------------------
+
+多对多
+#当前生成的书籍对象
+book_obj = Book.objects.create(title='追风筝的人',price=200,pub_date='2012-12-12',publish_id=1)
+
+#为书籍绑定作者对象
+yuan = Author.objects.filter(name='yuan').first()
+egon = Author.objects.filter(name='alex').first()
+
+#绑定多对多关系,即向关系表book_authors中添加记录
+book_obj.authors.add(yuan,egon)    #将某些特定的 model 对象添加到被关联对象集合中,book_obj.authors.add(*[])
+
+
+核心:book_obj.authors.all()是什么？
+
+
+------------------------------------------    基于对象的跨表查询 -------------------------
+----------------------------------   一对多的查询  (publish 与 book)  -------------------------------------
+
+
+正向查询安字段(publish) 
+
+#查询主键为1的书籍的出版社所在的城市
+book_obj = Book.objects.filter(id=1).first()
+
+#book_obj.publish 是主键为1 的书籍对象关联的出版社对象
+print(book_obj.publish.city)   *******
+
+
+反向查询(按表名小写 book_set):
+
+publish = Publish.objects.get(name='苹果出版社')
+# publish.book_set.all() :与苹果社关联的所有书籍对象集合
+
+book_list = publish.book_set.all()
+for book_obj in book_list:
+	print(book_obj.title)
+
+--------------------------------  一对一查询  ------------------------(Author 与 AuthorDetail )作者与作者详细信息
+正向查询(按字段  authorDetail)
+egon = Author.objects.filter(name = 'egon').first()
+print(egon.authorDetail.telephone)    #egon  的 电话号码
+
+反向查询(按表名 author):
+#查询所有住址在北京的作者的姓名
+
+authorDetail_list = AuthorDetail.objects.filter(addr = 'beijing')
+for obj in authorDetail_list:
+	print(obj.author.name)
+
+----------------------------  多对多查询 (Author 与 Book)-------------------------
+正向查询按字段 (按字段 authors):
+
+# 西游记所有作者的名字以及手机号
+
+book_obj = Book.objects.filter(title='西游记').first()
+authors = book_obj.authors.all()
+for author_obj in authors:
+	print(author_obj.name,author_obj.authorDetail.telephone)
+
+
+反向查询 (按表名: book_set)
+#查询egon 出过的所有书籍的名字
+
+author_obj = Author.objects.get(name = 'egon')
+book_list = author_obj.book_set.all()   #与egon作者相关的所有书籍
+for book_obj in book_list:
+	print(book_obj.title)
+
+
+注意：
+
+你可以通过在 ForeignKey() 和ManyToManyField的定义中设置 related_name 的值来覆写 FOO_set 的名称。例如，如果 Article model 中做一下更改：
+
+publish = ForeignKey(Book, related_name='bookList')
+
+
+那么接下来就会如我们看到这般：
+# 查询 人民出版社出版过的所有书籍
+publish=Publish.objects.get(name="人民出版社")
+book_list=publish.bookList.all()  # 与人民出版社关联的所有书籍对象集合
+
+
+----------------------------------------------   基于双下划线的跨表查询   -------------------------
+
+要做跨关系查询，就使用两个下划线来链接模型(model)间关联字段的名称，直到最终链接到你想要的model 为止。
+
+正向查询按字段,反向查询按表名小写用来告诉ORM 引擎join哪张表
+
+*******************************************            一对多查询
+
+练习:  查询苹果出版社出版过的所有书籍的名字与价格(一对多)
+#正向查询 按字段:publish
+
+queryResult = Book.objects.filter(publish__name='苹果出版社').values('title','price')
+
+
+#反向查询按表名 book
+queryResult = Publish.objects.filter(name='苹果出版社').values('book__title','book__price')
+
+
+-----------------------------------------     多对多查询   -----------------------
+#练习   查询alex出过的所有书籍的名字(多对多)
+#    正向查询 按字段:authors 
+queryResult = Book.objects.filter(authors__name = 'alex').values('title')
+
+#反向查询  按表名:book
+queryResult = Author.objects.filter(name='alex').values('book__title')
+
+
+-----------------------------------------     一对一查询 ----------------------------------
+正向查询按字段  反向查询按表名
+查询alex 的手机号
+
+正向查询
+ret = Author.objects.filter(name='alex').values('authordetail__telephone')
+
+反向查询
+ret = AuthorDetail.objects.filter(author__name='alex').values('telephone')
+
+-------------------------------------------  进阶练习(连续跨表)  ----------------------------------
+
+#练习:   查询人民出版社出版过的所有书籍的名字以及作者的名字
+
+# 正向查询 
+ret = Book.objects.filte(publish__name='人民出版社').values('title','authors__name')
+
+
+#反向查询
+ret = Publish.objects.filte(name='人民出版社').values('book__title','book__authors__name')
+
+
+#练习:手机号以151开头的作者出版过的所有书籍名称以及出版社名称
+# 方式1  :
+ret = Book.objects.filter(authors__authorDetail__telephone__startswith='151').values('title','publish__name')
+
+#方式2  :
+ret = Author.objects.filter(authorDetail__telephone__startswith='151').values('book__title','book__publish__name')
+
+
+---------------------------------------------   releted_name ----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

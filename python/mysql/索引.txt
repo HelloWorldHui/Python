@@ -1,0 +1,44 @@
+desc s1; 查看表结构
+加索引 查找快
+
+
+
+alter table biao_name add primary key(id); 添加主键
+
+
+alter table biao_name drop primary key; 删除主键
+
+mysql 中的primary key unique 联合唯一 也都是索引,除了加速查找还有约束功能
+
+普通索引 index;加速查找
+
+唯一索引:
+	主键索引primary key: 加速查找+约束 (不为空,不能重复)
+	唯一索引unique 加速查找 + 约束 不能重复
+联合索引:
+	primary key(id,name):联合主键索引
+	unique(id,name): 联合唯一索引
+	index(id,name): 联合普通索引
+索引两大类型 hash 与 btree
+
+创建/删除索引  语法
+create table 表名(
+	id int ,
+	name char,
+	age int
+	unique key uni_id(id),
+	index ix_name(name)
+);
+
+
+方法2 
+不能用create 方法创建主键
+create index ix_age on t1(age);
+
+方法3
+alter table t1 add index ix_sex(sex);
+
+删除 索引
+drop index 索引名字 on 表名;
+alter table 表名 drop index 索引名;
+alter table 表名 drop primary key; 删除主键

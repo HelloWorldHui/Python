@@ -1,0 +1,21 @@
+import socketserver
+class S(socketserver.BaseRequestHandler):
+	def handle:
+		while 1:
+			print(self.request.recv(1024).decode('utf8'))
+			self.request.send(b'88')
+if __name__ = '__main__':
+	ip_port = ('127.0.0.1',8080)
+	server = socketserver.ThreadingTCPserver(ip_port,S)
+	server.serve_forever()
+
+
+------------------------------
+¿Í»§¶Ë
+import socket
+ip_port = ('127.0.0.1',8080)
+client = socket.socket()
+client.connect(ip_port)
+while 1:
+    client.send(b'hi')
+    print(client.recv(1024))

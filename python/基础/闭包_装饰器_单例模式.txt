@@ -1,0 +1,79 @@
+def fun():
+	a = 1
+	def inner():
+		return a*a
+	return inner 
+fun()()
+闭包
+
+def func():
+	name = 'alex'
+	def inner():
+		print(name)
+	return inner 
+func()()
+-------------------------
+手写装饰器
+def Zsq(f):
+    def inner(*args,**kwargs): #聚合
+        """被装饰函数执行之前的操作"""
+        ret=f(*args,**kwargs)# 打散
+        """被装饰函数执行之后的操作"""
+        return  ret
+    return inner
+
+
+# ----------------------------------------
+# ============================
+装饰器
+
+import time
+def zsq(f):
+    def inner(*args,**kwargs):
+        a = time.time()
+        ret = f(*args,**kwargs)
+        b = time.time()
+        print(b-a)
+        return  ret
+    return inner
+
+@zsq # func = zsq(func) inner
+def func(x,y,z):
+    time.sleep(0.2)
+    return x+y+z
+print(func(1,2,3)) #inner(1,2,3)
+=========================================================
+
+# 单例模式
+# class A:
+#     pass
+# obj1 = A()
+# obj2 = A()
+# obj3 = A()
+# print(obj1,obj2, obj3)
+
+# class A:
+#     def __new__(cls, *args, **kwargs):
+#         print(111)
+#         obj = object.__new__(cls)
+#         return obj
+#     def __init__(self):
+#         print(222)
+# obj1 = A()
+
+# class A:
+#     __instance = None
+#     def __new__(cls, *args, **kwargs):
+#         if A.__instance is None:
+#             obj = object.__new__(cls)
+#             A.__instance = obj
+#         return A.__instance
+# obj1 = A()
+# obj2 = A()
+# obj3 = A()
+# obj4 = A()
+# print(obj1)
+# print(obj2)
+# print(obj3)
+# print(obj4)
+

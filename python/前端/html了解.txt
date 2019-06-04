@@ -1,0 +1,168 @@
+<!--2秒后跳转到对应的网址，注意引号-->
+<meta http-equiv="refresh" content="2;URL=https://www.oldboyedu.com"> #如果把URL和后面的内容去掉，就是2秒钟刷新一次，这些内容了解一下就行
+<!--指定文档的编码类型--> 
+<meta http-equiv="content-Type" charset=UTF8">
+<!--告诉IE以最高级模式渲染文档-->
+<meta http-equiv="x-ua-compatible" content="IE=edge"> #edge是微软的一个全新的浏览器,其实就是告诉IE浏览器，你按照最高标准来渲染我的页面，了解一下就可以啦
+
+
+　列表
+　　　　1.无序列表
+
+<ul type="disc">
+  <li>第一项</li>
+  <li>第二项</li>
+</ul>
+
+type属性：
+
+disc（实心圆点，默认值）
+circle（空心圆圈）
+square（实心方块）
+none（无样式）
+
+
+　　　　2.有序列表
+
+<ol type="1" start="2">
+  <li>第一项</li>
+  <li>第二项</li>
+</ol>
+　　　　type属性： start是从数字几开始
+
+1 数字列表，默认值
+A 大写字母
+a 小写字母
+Ⅰ大写罗马
+ⅰ小写罗马
+
+
+　　　　3.标题列表（就像大纲一样，有一个层级效果）
+<dl>
+  <dt>标题1</dt>
+  <dd>内容1</dd>
+  <dt>标题2</dt>
+  <dd>内容1</dd>
+  <dd>内容2</dd>
+</dl>
+----------------------------------
+表格标签
+<table border='1'>
+  <thead> #标题部分
+  <tr> #一行
+    <th>序号</th> #一个单元格
+    <th>姓名</th>
+    <th>爱好</th>
+  </tr>
+  </thead>
+  <tbody> #内容部分
+  <tr> #一行
+    <td>1</td> #一个单元格
+    <td>Egon</td>
+    <td>杠娘</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Yuan</td>
+    <td>日天</td>
+  </tr>
+  </tbody>
+</table>
+
+
+
+属性:
+
+border: 表格边框.
+cellpadding: 内边距 （内边框和内容的距离）
+cellspacing: 外边距.（内外边框的距离）
+width: 像素 百分比.（最好通过css来设置长宽）
+rowspan: 单元格竖跨多少行
+colspan: 单元格横跨多少列（即合并单元格）
+======================================================
+from 
+
+功能：
+
+　　　　表单用于向服务器传输数据，从而实现用户与Web服务器的交互
+
+　　　　表单能够包含input系列标签，比如文本字段、复选框、单选框、提交按钮等等。
+
+　　　　表单还可以包含textarea、select、fieldset和 label标签。
+
+accept-charset	规定在被提交表单中使用的字符集（默认：页面字符集）。
+
+action	        规定向何处提交表单的地址（URL）（提交页面）。
+
+autocomplete	规定浏览器应该自动完成表单（默认：开启）。
+
+enctype	        规定被提交数据的编码（默认：url-encoded）。
+
+method	        规定在提交表单时所用的 HTTP 方法（默认：GET）。
+
+name	        规定识别表单的名称（对于 DOM 使用：document.forms.name）。
+
+novalidate	规定浏览器不验证表单。
+
+target	        规定 action 属性中地址的目标（默认：_self）。
+
+===============================================================
+select 标签  下拉标签
+<form action="" method="post">
+  <select name="city" id="city">
+    <option value="1">北京</option>
+    <option selected="selected" value="2">上海</option> #默认选中，当属性和值相同时，可以简写一个selected就行了
+    <option value="3">广州</option>
+    <option value="4">深圳</option>
+  </select>
+</form>
+  
+
+
+　　属性说明：
+
+multiple：布尔属性，设置后为多选下拉框，否则默认单选
+disabled：禁用
+selected：默认选中该项
+value：定义提交时的选项值
+
+===============================
+label标签
+
+
+　　　　定义：<label> 标签为 input 元素定义标注（标记）。如果不用这个label给input标签一个标记，input会变黄，不影响使用，只是提示你，别忘了给用户一些提示，也就是这个label标签。
+　　　　说明：
+
+　　label 元素不会向用户呈现任何特殊效果。但是点击label标签里面的文本，那么和他关联的input标签就获得了光标，让你输入内容
+　　<label> 标签的 for 属性值应当与相关元素的 id 属性值相同。
+<form action="">
+  <label for="username">用户名</label>  #for和input的id属性一样，就关联在一起了
+  <input type="text" id="username" name="username">
+</form>
+==============================================
+
+textarea多行文本
+
+
+<textarea name="memo" id="memo" cols="30" rows="10">
+  默认内容
+</textarea>
+　　属性说明：
+
+name：名称
+rows：行数  #相当于文本框高度设置
+cols：列数   #相当于文本框长度设置
+disabled：禁用
+
+
+
+
+
+
+
+
+
+
+
+
+

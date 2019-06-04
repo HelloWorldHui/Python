@@ -1,0 +1,12 @@
+db.dropDatabase()  # 删除库
+db.userinfo.drop()  # 删除 集合
+
+
+#1、删除多个中的第一个
+db.user.deleteOne({ 'age': 8 })
+ 
+#2、删除国家为China的全部
+db.user.deleteMany( {'addr.country': 'China'} )
+ 
+#3、删除全部
+db.user.deleteMany({}) 

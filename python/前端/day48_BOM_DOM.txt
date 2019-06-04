@@ -1,0 +1,96 @@
+﻿day48
+=================================
+
+计时器相关  
+
+// 在指定时间之后执行一次相应函数
+var timer = setTimeout(function(){alert(123);}, 3000)
+// 取消setTimeout设置
+clearTimeout(timer);
+
+--------------------------
+***
+
+// 每隔一段时间就执行一次相应函数
+var timer = setInterval(function(){console.log(123);}, 3000)
+// 取消setInterval设置
+clearInterval(timer);
+--------------------
+创建节点    (标签名)
+var divEle = document.createElement("div");
+----------------------------------
+事件绑定
+       element.on事件=function(){ }
+================================
+CSS
+JS
+   1 ECMA script
+   2 BOM
+        browser object model
+		警告框alert('警告框')
+		确认框confirm('确认框')
+		提示框prompt('输入框')
+
+		location.href  获取URL
+		location.href="URL" // 跳转到指定页面
+		location.reload() 重新加载页面
+
+		setTimeout(function(){},1000)   执行一次
+		clearTimeout(1)
+
+		setInterval(function(){},1000) 方法会不停地调用函数
+		clearInterval(1)
+
+   3 DOM
+        document object model
+        
+        1 文档树结构
+		-- document
+               ----- html
+         head---   ---body
+           -- --  -- -- -- --
+                           - - - - -   
+        2 dom对象
+        
+            两个DOM(节点)对象:
+                1 document对象   文档
+                2 element对象    所有标签
+        3 查找标签 
+              1 直接查找
+                    document.getElementById();    // 一个element对象 ID
+                    document.getElementsByClassName(); // 多个element对象构成的数组 class
+                    document.getElementsByTagName(); // 多个element对象构成的数组 标签数组 div
+                    document.getElementsByName(); // 多个element对象构成的数组 Name 数组
+                  
+                    var c1=document.getElementsByClassName("c1")[0];   第一个class='c1'
+                    console.log("c1",c1);     第一个字符串  第二个节点 标签
+                    var c2=c1.getElementsByClassName("c2")[0];  
+                    console.log(c2)
+              2 导航查找   /间接查找
+                    parentElement            父节点标签元素
+                    children                 所有子标签
+                    firstElementChild        第一个子标签元素
+                    lastElementChild         最后一个子标签元素
+                    nextElementSibling       下一个兄弟标签元素
+                    previousElementSibling   上一个兄弟标签元素
+                 
+        4 标签控制 / 节点  
+              1 文本控制
+                    获取文本节点的值
+                    var divEle = document.getElementById("d1")
+                    divEle.innerText
+                    divEle.innerHTML
+              2 属性控制
+                     attribute操作
+                       ele.setAttribute("egon","123");
+                       ele.getAttribute("egon");
+                       ele.removeAttribute("alex")  ;
+                     
+              3 class属性控制
+                    ele.classList.add("c3")
+                    ele.classList.remove("c2)
+              4 css控制
+                    var ele=document.getElementsByClassName("c1")[0];
+                    ele.style.color="red";
+                    ele.style.fontSize="38px"
+                            

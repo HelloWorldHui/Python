@@ -1,0 +1,29 @@
+'''
+cook 写操作
+res = redirect('/index/')
+res.set_cookie('is_login',True,max_age=10) #max_age 声明周期为10秒
+res.set_cookie('username','abc')
+
+cook 删除操作
+res.delete_cookie('key')
+
+读操作 cook 
+request.COOKIES.get('key')
+'''
+=-=========================================================
+
+
+
+
+'''
+session 写操作
+request.session['key1']='v1'
+request.session['key2']='v2'
+
+session 读
+reques.session.get('key')
+
+session 删除
+del request.session["session_name"]
+request.session.flush()
+'''

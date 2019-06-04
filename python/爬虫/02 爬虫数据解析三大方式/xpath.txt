@@ -1,0 +1,41 @@
+from lxml import etree
+
+
+# tree = etree.parse("hello.html") #读取本地文件
+tree = etree.HTML(doc) #网页内容字符串
+
+# ret = tree.xpath('//a[@id="feng"]/text()')
+# ret = tree.xpath('//a[@id="feng"]/@href')
+# ret = tree.xpath('//a/text()')
+
+# 属性定位：
+#找到class属性值为song的div标签
+# ret = tree.xpath('//div[@class="song"]')
+
+# 层级&索引定位：
+#找到class属性值为tang的div的直系子标签ul下的第二个子标签li下的直系子标签a
+# ret = tree.xpath('//div[@class="tang"]/ul/li[2]/a')
+
+# 逻辑运算：
+    #找到href属性值为空且class属性值为du的a标签
+# ret = tree.xpath('//a[@href="" and @class="du"]/text()')
+
+# 模糊匹配：
+#     //div[contains(@class, "ng")]
+#     //div[starts-with(@class, "ta")]
+# ret = tree.xpath('//div/a[contains(@class,"du")]/text()')
+# ret = tree.xpath('//div/a[starts-with(@class,"du")]')
+
+# 取文本：
+    # /表示获取某个标签下的文本内容
+    # //表示获取某个标签下的文本内容和所有子标签下的文本内容
+    # //div[@class="song"]/p[1]/text()   #取div下 class 为 song 的第一个 p标签 文本内容
+    # //div[@class="tang"]//text()     # 取 div class为tang  所有 text()
+
+# ret = tree.xpath('//div[@class="song"]/p[1]/text()')
+
+
+# ret = tree.xpath('//div[@class="tang"]//text()')   # 取后代子孙的所有文本
+ret = tree.xpath('//div[@class="tang"]/text()') # 只取儿子 下的文本
+# ret=tree.xpath("//div[@class='tang']/ul/li/a/@href")
+

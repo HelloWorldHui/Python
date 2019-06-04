@@ -1,0 +1,21 @@
+SELinux 
+getenforce 查看状态
+setenforce 0  临时关闭
+
+*************
+永久关闭
+vim /etc/selinux/config
+SELINUX=disabled
+*************
+
+
+
+linux 防火墙
+iptables -L 查看系统防火墙规则
+iptables -F 清空所有防火墙规则
+
+systemctl stop firewalld 停止防火墙
+systemctl status firewalld 查看防火墙的状态
+systemctl start firewalld  # 开启防火墙
+
+systemctl disable firewalld 永久关闭  *********************

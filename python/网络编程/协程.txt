@@ -1,0 +1,71 @@
+协程:是单线程下的并发,又称微线程,纤程,
+并发:切换+保存状态
+gevent模块
+不能识别time.sleep 解决办法 from gevent import monkey;monkey.patch_all()
+
+
+----------------
+ #真正的协程模块就是使用greenlet完成的切换
+from greenlet import greenlet
+
+def eat(name):
+    print('%s eat 1' %name)  #2
+    g2.switch('taibai')   #3
+    print('%s eat 2' %name) #6
+    g2.switch() #7
+def play(name):
+    print('%s play 1' %name) #4
+    g1.switch()      #5
+    print('%s play 2' %name) #8
+
+g1=greenlet(eat)
+g2=greenlet(play)
+
+g1.switch('taibai')#可以在第一次switch时传入参数，以后都不需要  1
+-----------------------------
+
+# import gevent
+# import time
+# #gevent 不能识别 time.sleep
+# # 解决办法 from gevent import monkey;monkey.patch_all() 识别所有的IO 自动切换
+#
+# def func(n,):
+#     print('xxxx',n)
+#     gevent.sleep(2)
+#     # time.sleep(2) #不能识别
+#     print('ccccc')
+#
+# def func2(m):
+#     print('11111111',m)
+#     gevent.sleep(2)
+#     print('22222222')
+# g1 = gevent.spawn(func,'alex')  #  异步提交任务
+# g2 = gevent.spawn(func2,'马来西亚')
+#
+# # gevent.joinall([g1,g2]) #等多所有
+# g1.join() #执行并等待异步提交的任务完成
+# g2.join()#执行并等待异步提交的任务完成
+# print('代码结束')
+
+from gevent import monkey;monkey.patch_all()
+
+
+
+from gevent import mokey;mokey.patch_all()
+from gevent import mokey;mokey.patch_all()
+from gevent import mokey:mokey.patch_all()
+===========================================
+
+#用法
+g1 = gevent.spawn(func,多个参数) 创建一个协程对象g1, spawn(函数名,多个参数)
+spawn是异步提交任务
+
+g2 = gevent.spawn(func2)
+
+g1.join() #等待g1结束,上面只是创建协程对象,这个join才是去执行
+g2.join() #等待g2结束,
+
+gevent.joinall([g1,g2]) #等待列表中的协程都结束
+g1.value #拿到func1的返回值
+gevent.sleep(2)# 睡2秒 遇到IO切换
+# 不能识别time.sleep 解决办法 from gevent import monkey;monkey.patch_all()

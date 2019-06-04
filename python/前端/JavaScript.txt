@@ -1,0 +1,600 @@
+ES6 就是指 ECMAScript 6
+
+shift + 回车不执行
+
+JavaScript引入方式
+
+<script>
+  // 在这里写你的JS代码
+　//console.log('骑士计划！') #f12建打开浏览器的调试窗口，然后在console这个调试台就能看到这个内容了
+    alert('骑士计划！')  #这个是浏览器窗口一打开咱们这个文件，就弹出一个窗口
+</script>
+
+引入额外的JS文件
+<script src="myscript.js"></script>
+
+----------------　
+变量声明（我们就通过浏览器自带的那个调试台来写吧~~）
+　　　　1.JavaScript的变量名可以使用_，数字，字母，$组成，不能以数字开头。
+
+　　　　2.声明变量使用 var 变量名; 的格式来进行声明
+　注意：
+
+　　　　　　变量名是区分大小写的。
+
+　　　　　　推荐使用驼峰式命名规则。首字母大写
+
+　　　　　　保留字不能用做变量名。
+
+-------------------------------------------------------
+var x;  // 此时x是undefined
+var x = 1;  // 此时x是数字
+var x = "Alex"  // 此时x是字符串 
+
+
+parseInt("123")  // 返回123
+parseInt("ABC")  // 返回NaN,NaN属性是代表非数字值的特殊值。该属性用于指示某个值不是数字。
+parseFloat("123.456")  // 返回123.456
+
+
+var a = "Hello"
+var b = "world;
+var c = a + b; 
+console.log(c);  // 得到Helloworld
+--------------------------------
+
+.length   #不加括号的是属性	返回长度
+.trim()    #得到一个新值	移除空白
+.trimLeft()	                移除左边的空白
+.trimRight()	                移除右边的空白
+.charAt(n) #n类似索引，从0开始，超过最大值返回''空字符串	返回第n个字符
+.concat(value, ...) #s1='hello';s.concat('xx');得到helloxx	拼接
+.indexOf(substring, start) #这个start是从索引几开始找，没有返回-1	子序列位置
+.substring(from, to) #不支持负数，所以一般都不用它，了解一下就行了	根据索引获取子序列
+.slice(start, end) #var s1='helloworld';s1.slice(0,-5)看结果，就用它	切片
+.toLowerCase() #全部变小写	小写
+.toUpperCase()  #全部变大写	大写
+.split(delimiter, limit)#分隔,s1.splite(' '),后面还可以加参数s1.split(' '，2),返回切割后的元素个数	分割
+ 
+
+
+拼接字符串一般使用“+”
+
+
+// 字符串中嵌入变量
+var name = "q1mi", time = "today";
+`Hello ${name}, how are you ${time}?`
+
+布尔值(Boolean)
+　　　　区别于Python，true和false都是小写。
+
+var a = true;
+var b = false;
+
+
+
+null表示变量的值是空，undefined则表示只声明了变量，但还没有赋值。
+
+
+var a = {123,'ABC'};
+console.log(a[1]); 输出 'ABC'
+-----------------------------------------
+对象object
+
+方法	说明
+.length	数组的大小
+.push(ele)	尾部追加元素
+.pop()	获取尾部的元素
+.unshift(ele)	头部插入元素
+.shift()	头部移除元素
+.slice(start, end)	切片
+.reverse() #在原数组上改的	反转
+.join(seq)#a1.join('+')，seq是连接符	将数组元素连接成字符串
+.concat(val, ...) #连个数组合并	连接数组
+.sort()  	排序
+.forEach() #讲了函数再说	将数组的每个元素传递给回调函数
+.splice()	删除元素，并向数组添加新元素。
+.map()  #讲了函数再说	返回一个数组元素调用函数处理后的值的新数组
+-------------------------------------------------
+concat ===========>< extend
+
+sort() 
+function sortNumber(a,b){
+    return a - b
+}
+var arr1 = [11, 100, 22, 55, 33, 44]
+arr1.sort(sortNumber)
+-------------------------
+　　关于遍历数组中的元素，可以使用下面的方式：
+
+var a = [10, 20, 30, 40];
+for (var i=0;i<a.length;i++) {
+  console.log(a[i]);
+}
+-----------------------------------------
+splice()
+　　　　语法：
+
+　　　　　　splice(index,howmany,item1,.....,itemX)
+
+　　　　参数： 
+
+参数	描述
+index	必需。规定从何处添加/删除元素。
+该参数是开始插入和（或）删除的数组元素的下标，必须是数字。
+howmany	必需。规定应该删除多少元素。必须是数字，但可以是 "0"。
+如果未规定此参数，则删除从 index 开始到原数组结尾的所有元素。
+item1, ..., itemX	可选。要添加到数组的新元素
+
+a1.splic(1,1,3);    从索引1开始删除  删除1个 位置替换3
+
+----------------------------------------
+
+自定义对象
+
+var obj = {'name':'HUI','age':18}    key键 可以不用加引号
+--------------------------------------
+　类型查询
+typeof "abc"  // "string"
+typeof null  // "object"
+typeof true  // "boolean"
+typeof 123  typeof NAN // "number"
+typeof undefined  //undefined
+
+
+　typeof是一个一元运算符（就像++，--，！，- 等一元运算符），不是一个函数，也不是一个语句。
+
+　　对变量或值调用 typeof 运算符将返回下列值之一：
+
+undefined - 如果变量是 Undefined 类型的
+boolean - 如果变量是 Boolean 类型的
+number - 如果变量是 Number 类型的
+string - 如果变量是 String 类型的
+object - 如果变量是一种引用类型或 Null 类型的
+
+------------------------------------------------
+
+
+运算符
+　　算数运算符
++ - * / % ++ --  i++,是i自加1，i--是i自减1
+　　比较运算符
+> >= < <= != == === !==
+　　注意：
+
+1 == “1”  // true  #弱等于，将1转换为字符串'1',在=号两个数据类型不同的时候，会自动给你变成相同的，具体怎么一个变换规则，先不用理他，因为这种比较不好，因为以后咱们就尽量用===。
+1 === "1"  // false #强等于，比较类型也比较值
+
+
+　提一个输入法的高级用法：搜狗输入法的一个高级用法：不认识的字：先输入一个字母uhuohuohuo,就看到了焱，不会写大写的12345怎么办？先输入一个v12345，你就看到壹万贰仟叁佰肆拾伍了。
+
+　　逻辑运算符
+
+
+&& || !  #and，or，非（取反）!null返回true
+　　赋值运算符
+= += -= *= /=  #n += 1其实就是n = n + 1
+
+
+---------------------------------
+
+流程控制
+　　if-else 
+var a = 10;
+if (a > 5){
+  console.log("yes");
+}else {
+  console.log("no");
+}
+
+
+---------------------------------
+　if-else if-else  #多条件
+
+
+
+var a = 10;
+if (a > 5){
+  console.log("a > 5");
+}else if (a < 5) {
+  console.log("a < 5");
+}else {
+  console.log("a = 5");
+}
+==========================================
+switch 切换
+
+
+
+var day = new Date().getDay(); //示例化一个今天的日期对象，getDay()是获取天数的编号，0表示星期日
+switch (day) {  //这里day这个参数必须是一个值或者是一个能够得到一个值的算式才行，这个值和后面写的case后面的值逐个比较，
+					满足其中一个就执行case对应的下面的语句，然后break，
+					如果没有加break，还会继续往下判断
+  case 0: //如果day是0
+  console.log("Sunday"); //执行它
+  break; //然后break跳出
+  case 1:
+  console.log("Monday");
+  break;
+default:  //如果没有任何满足条件的，就执行它
+  console.log("...")
+}
+
+---------------------------------------------
+
+　for
+for (var i=0;i<10;i++) {  //就这么个写法，声明一个变量，变量小于10，变量每次循环自增1，for(;;){console.log(i)}；
+这种写法就是个死循环，会一直循环，直到你的浏览器崩了，就不工作了，回头可以拿别人的电脑试试~~
+  console.log(i);
+}
+　　while
+var i = 0;
+while (i < 10) {
+  console.log(i);
+  i++;
+}
+　　三元运算
+var a = 1;
+var b = 2;
+var c = a > b ? a : b //如果a>b这个条件成立，就把冒号前面的值给c，否则把冒号后面的值给c   
+			//python中的：a = x if x>y else y
+
+================================================================
+
+函数
+　　函数定义
+　　　　JavaScript中的函数和Python中的非常类似，只是定义方式有点区别。
+
+
+
+// 普通函数定义
+function f1() {
+  console.log("Hello world!");
+}
+
+// 带参数的函数
+function f2(a, b) {
+  console.log(arguments);  // 内置的arguments对象
+  console.log(arguments.length);
+  console.log(a, b);
+}
+
+// 带返回值的函数
+function sum(a, b){
+  return a + b;  //在js中，如果你想返回多个值是不行的，比如return a ，b；只能给你返回最后一个值，如果就想返回多个值，你可以用数组包裹起来 return [a,b]；
+}
+sum(1, 2);  // 调用函数  sum(1,2,3,4,5)参数给多了，也不会报错，还是执行前两个参数的和，sum(1)，少参数或者没参数也不报错，不过返回值就会是NAN
+
+// 匿名函数方式，多和其他函数配合使用，后面我们就会用到了
+var sum = function(a, b){  //在es6中，使用var，可能会飘黄，是因为在es6中，建议你使用let来定义变量，不过不影响你使用
+  return a + b;  
+}
+sum(1, 2);
+
+// 立即执行函数，页面加载到这里，这个函数就直接执行了，不需要被调用执行
+(function(a, b){
+  return a + b;
+})(1, 2);  //python中写可以这么写：ret=(lambda x,y:x+y)(10,20) 然后print(ret)
+
+============================================================
+
+ES6中允许使用“箭头”（=>）定义函数，可以理解为匿名函数，用的不多。
+
+var f = v => v;
+// 等同于
+var f = function(v){
+  return v;
+}
+
+
+
+如果箭头函数不需要参数或需要多个参数，就是用圆括号代表参数部分：
+
+
+
+var f = () => 5;
+// 等同于
+var f = function(){return 5};
+
+var sum = (num1, num2) => num1 + num2;
+// 等同于
+var sum = function(num1, num2){
+  return num1 + num2;
+}
+==================================================================
+　作用域
+　　　　首先在函数内部查找变量，找不到则到外层函数查找，逐步找到最外层。
+
+　　　　几个例子：
+
+　　　　1.
+
+
+
+var city = "BeiJing";
+function f() {
+  var city = "ShangHai";
+  function inner(){
+    var city = "ShenZhen";
+    console.log(city);
+  }
+  inner();
+}
+
+f();  //输出结果是？ ---> ShenZhen
+----
+var city = "BeiJing";
+function Bar() {
+  console.log(city);
+}
+function f() {
+  var city = "ShangHai";
+  return Bar;
+}
+var ret = f();
+ret();  // 打印结果是？---> BeiJing
+
+
+-----闭包
+
+var city = "BeiJing";
+function f(){
+    var city = "ShangHai";
+    function inner(){
+        console.log(city);
+    }
+    return inner;
+}
+var ret = f();
+ret();   ---> ShangHai
+
+
+------
+　　　当函数调用的前一瞬间，会先形成一个激活对象：Avtive Object（AO），并会分析以下3个方面：
+
+　　　　　　1:函数参数，如果有，则将此参数赋值给AO，且值为undefined。如果没有，则不做任何操作。
+　　　　　　2:函数局部变量，如果AO上有同名的值，则不做任何操作。如果没有，则将此变量赋值给AO，并且值为undefined。
+　　　　　　3:函数声明，如果AO上有，则会将AO上的对象覆盖。如果没有，则不做任何操作。
+
+
+　看两个例子：
+
+复制代码
+复制代码
+var age = 18;
+function foo(){
+  console.log(age);  //分析到这一步的时候，发现你下面有age变量声明，那么age变量就在AO对象上村上了，并且值为undefined，所以函数在执行的时候，还没有到age=22这步的时候，age=undefined
+  var age = 22;      //如果没有这个变量声明，那么打印的结果应该是18
+  console.log(age);
+}
+foo();  // 问：执行foo()之后的结果是？
+
+undefined
+22
+
+
+
+---------------------
+
+第二题：
+
+复制代码
+复制代码
+var age = 18;
+function foo(){
+  console.log(age);
+  var age = 22;
+  console.log(age);
+  function age(){   #发现age这个函数名也是变量，将OA上的变量给替换了，那么函数在执行的时候，去OA上找，发现OA是个函数，然后执行到age=22的时候，age才被重新赋值
+    console.log("呵呵");
+  }
+  console.log(age);
+}
+foo();  // 执行后的结果是？
+
+结果：
+　　function age(){
+　　　　console.log("呵呵");
+　　}
+　　22
+　　22
+
+
+词法分析过程：
+1、分析参数，有一个参数，形成一个 AO.age=undefine;
+2、分析变量声明，有一个 var age, 发现 AO 上面已经有一个 AO.age，因此不做任何处理
+3、分析函数声明，有一个 function age(){...} 声明， 则把原有的 age 覆盖成 AO.age=function(){...};
+
+最终，AO上的属性只有一个age，并且值为一个函数声明
+
+执行过程：
+注意：执行过程中所有的值都是从AO对象上去寻找
+
+1、执行第一个 console.log(age) 时，此时的 AO.age 是一个函数，所以第一个输出的一个函数
+2、这句 var age=22; 是对 AO.age 的属性赋值， 此时AO.age=22 ，所以在第二个输出的是 22
+3、同理第三个输出的还是22, 因为中间再没有改变age值的语句了
+
+这些内容就是好多人搞不明白的，经常写js代码的时候，发现自己的结果不对啊，什么情况，就是因为这个没搞清楚~~~
+
+
+==========================================================================
+　　自定义对象
+　　　　JavaScript的对象（Object）本质上是键值对的集合（Hash结构），但是只能用字符串作为键。
+
+var a = {"name": "Alex", "age": 18};
+console.log(a.name);
+console.log(a["age"]);
+
+
+var a = {"name": "Alex", "age": 18};
+for (var i in a){
+  console.log(i, a[i]);
+}
+==================================
+var person=new Object();  // 创建一个person对象
+person.name="Alex";  // person对象的name属性
+person.age=18;  // person对象的age属性
+===============================
+function Person(name){
+    this.name=name
+}
+
+console.log(p1.name)  
+Person.prototype.func1 = function(){  //添加一些方法，使用prototype，叫做原型链 方法
+    console.log(this.name,'爱编程！')
+}
+var p1 = new Person('chao');
+p1.func1()
+#chao
+#chao 爱编程！
+类似于python中的面向对象,了解一下就可以了
+==========================================
+
+var m = new Map();
+var o = {p: "Hello World"}
+
+m.set(o, "content"}
+m.get(o)  // "content"
+
+m.has(o)  // true
+m.delete(o)  // true
+m.has(o) // false
+===========================
+
+　Date对象
+　　　　创建Date对象
+
+复制代码
+复制代码
+//方法1：不指定参数
+var d1 = new Date(); //获取当前时间
+console.log(d1.toLocaleString());  //当前时间日期的字符串表示
+//方法2：参数为日期字符串
+var d2 = new Date("2004/3/20 11:12");
+console.log(d2.toLocaleString());
+var d3 = new Date("04/03/20 11:12");
+console.log(d3.toLocaleString());
+//方法3：参数为毫秒数，了解一下就行
+var d3 = new Date(5000);  
+console.log(d3.toLocaleString());
+console.log(d3.toUTCString());  
+ 
+//方法4：参数为年月日小时分钟秒毫秒
+var d4 = new Date(2004,2,20,11,12,0,300);
+console.log(d4.toLocaleString());  //毫秒并不直接显示
+
+====================================
+var d = new Date(); 
+//getDate()                 获取日
+//getDay ()                 获取星期
+//getMonth ()               获取月（0-11）
+//getFullYear ()            获取完整年份
+//getHours ()               获取小时
+//getMinutes ()             获取分钟
+//getSeconds ()             获取秒
+//getMilliseconds ()        获取毫秒
+//getTime ()                返回累计毫秒数(从1970/1/1午夜)
+
+====================================
+JSON对象
+var str1 = '{"name": "Alex", "age": 18}';
+var obj1 = {"name": "Alex", "age": 18};
+// JSON字符串转换成对象
+var obj = JSON.parse(str1); 
+// 对象转换成JSON字符串
+var str = JSON.stringify(obj1);
+
+======================================
+//RegExp对象
+
+//创建正则对象方式1
+// 参数1 正则表达式(不能有空格)
+// 参数2 匹配模式：常用g(全局匹配;找到所有匹配，而不是在第一个匹配后停止)和i(忽略大小写)
+
+// 用户名只能是英文字母、数字和_，并且首字母必须是英文字母。长度最短不能少于6位 最长不能超过12位。
+
+// 创建RegExp对象方式（逗号后面不要加空格），假如匹配用户名是只能字母开头后面是字母加数字加下划线的5到11位的
+var reg1 = new RegExp("^[a-zA-Z][a-zA-Z0-9_]{5,11}$"); //注意，写规则的时候，里面千万不能有空格，不然匹配不出来你想要的内容，除非你想要的内容本身就想要空格，比如最后这个{5,11},里面不能有空格
+
+// 匹配响应的字符串
+var s1 = "bc123";
+
+//RegExp对象的test方法，测试一个字符串是否符合对应的正则规则，返回值是true或false。
+reg1.test(s1);  // true
+
+// 创建方式2，简写的方式
+// /填写正则表达式/匹配模式（逗号后面不要加空格）
+var reg2 = /^[a-zA-Z][a-zA-Z0-9_]{5,11}$/; 
+
+reg2.test(s1);  // true
+
+注意，此处有坑：如果你直接写一个reg2.test()，test里面啥也不传，直接执行，会返回一个true，用其他的正则规则，可能会返回false，是因为，test里面什么也不传，默认传的是一个undefined，并且给你变成字符串undefined，所以能够匹配undefined的规则，就能返回true，不然返回false
+
+
+// String对象与正则结合的4个方法
+var s2 = "hello world";
+
+s2.match(/o/g);         // ["o", "o"]             查找字符串中 符合正则 的内容 ，/o/g后面这个g的意思是匹配所有的o
+s2.search(/h/g);        // 0                      查找字符串中符合正则表达式的内容位置
+s2.split(/o/g);         // ["hell", " w", "rld"]  按照正则表达式对字符串进行切割
+s2.replace(/o/g, "s");  // "hells wsrld"          对字符串按照正则进行替换
+
+// 关于匹配模式：g和i的简单示例
+var s1 = "name:Alex age:18";
+
+s1.replace(/a/, "哈哈哈");      // "n哈哈哈me:Alex age:18"
+s1.replace(/a/g, "哈哈哈");     // "n哈哈哈me:Alex 哈哈哈ge:18"      全局匹配
+s1.replace(/a/gi, "哈哈哈");    // "n哈哈哈me:哈哈哈lex 哈哈哈ge:18"  不区分大小写
+
+
+// 注意事项1：
+// 如果regExpObject带有全局标志g，test()函数不是从字符串的开头开始查找，而是从属性regExpObject.lastIndex所指定的索引处开始查找。
+// 该属性值默认为0，所以第一次仍然是从字符串的开头查找。
+// 当找到一个匹配时，test()函数会将regExpObject.lastIndex的值改为字符串中本次匹配内容的最后一个字符的下一个索引位置。
+// 当再次执行test()函数时，将会从该索引位置处开始查找，从而找到下一个匹配。
+// 因此，当我们使用test()函数执行了一次匹配之后，如果想要重新使用test()函数从头开始查找，则需要手动将regExpObject.lastIndex的值重置为 0。
+// 如果test()函数再也找不到可以匹配的文本时，该函数会自动把regExpObject.lastIndex属性重置为 0。
+
+var reg3 = /foo/g;
+// 此时 regex.lastIndex=0
+reg3.test('foo'); // 返回true
+// 此时 regex.lastIndex=3
+reg3.test('xxxfoo'); // 还是返回true
+// 所以我们在使用test()方法校验一个字符串是否完全匹配时，一定要加上^和$符号，把匹配规则写的确定一些，尽量不用上面这种的写法/xxx/。
+
+// 注意事项2(说出来你可能不信系列)：
+// 当我们不加参数调用RegExpObj.test()方法时, 相当于执行RegExpObj.test(undefined)，然后将这个undefined又转为字符串"undefined",去进行匹配了, 并且/undefined/.test()默认返回true。
+var reg4 = /^undefined$/;
+reg4.test(); // 返回true
+reg4.test(undefined); // 返回true
+reg4.test("undefined"); // 返回true
+
+================================
+Math对象（类似于python的内置函数）
+　　　　Math：
+
+复制代码
+
+复制代码
+
+abs(x)      返回数的绝对值。
+exp(x)      返回 e 的指数。
+floor(x)    对数进行下舍入。
+log(x)      返回数的自然对数（底为e）。
+max(x,y)    返回 x 和 y 中的最高值。
+min(x,y)    返回 x 和 y 中的最低值。
+pow(x,y)    返回 x 的 y 次幂。
+random()    返回 0 ~ 1 之间的随机数。
+round(x)    把数四舍五入为最接近的整数。
+sin(x)      返回数的正弦。
+sqrt(x)     返回数的平方根。
+tan(x)      返回角的正切。
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+若要从URL 中捕获一个值，只需要在它周围放置一对圆括号。
+
+
+不需要添加一个前导的反斜杠，因为每个URL 都有。例如，应该是^articles 而不是 ^/articles。
+
+每个正则表达式前面的'r' 是可选的但是建议加上。它告诉Python 这个字符串是“原始的” —— 字符串中任何字符都不应该转义
+
+    url(r'^articles/(?P<y>\d{4})/(?P<m>\d+)$',views.month_archive2),
+
+
+
+
+对应的函数:
+	def month_archive2(request,m,y):
+		return HttpResponse('year:{0},month:{1}'.format(y,m))
+
+

@@ -1,0 +1,222 @@
+创建视图
+
+create view 视图名称 as sql语句
+create view name_view as select id from teacher where name = 'hui';
+
+drop view 视图名称
+
+创建触发器 触发器只支持增删改
+delimiter //
+create trigger tri_after_insert_cmd after insert on cmd for each row
+begin
+	if new.success = 'no' then
+		insert in to errlog(err_cmd,err_time)  values(new.cmd,new.sub_time);
+	end if ;
+end//
+
+delimiter ;
+
+
+#往表cmd中插入记录，触发触发器，根据IF的条件决定是否插入错误日志
+INSERT INTO cmd (
+    USER,
+    priv,
+    cmd,
+    sub_time,
+    success
+)
+VALUES
+    ('chao','0755','ls -l /etc',NOW(),'yes'),
+    ('chao','0755','cat /etc/passwd',NOW(),'no'),
+    ('chao','0755','useradd xxx',NOW(),'no'),
+    ('chao','0755','ps aux',NOW(),'yes');
+
+
+删除触发器
+drop trigger tri_after_insert_cmd;
+
+
+开启事务
+start transaction;
+xxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxx
+
+commit;只要不进行commit操作,就没有保存下来,没有刷到硬盘上
+rollback; 回滚到事务开启前
+------------------------------------------------------------
+查看存储过程	show create procedure 存储过程名字;
+------------------------------------------------------------
+
+存储过程
+delimiter //
+create procedure p1()
+begin
+declare exit handler for sqlexception#捕捉错误
+begin 
+rolloback;
+end;
+
+start transaction;
+xxxxxxxxxxxxx
+xxxxxxxxxxxxx
+xxxxxxxxxxxxx
+commit;
+
+end//
+delimiter ;
+
+调用存储过程
+call p1();
+
+-----------------------------------------------
+创建存储过程无参数
+delimiter //
+create procedure p2()
+begin
+	select * from blog;
+	insert into blog(name,sub_time) values('xxx',now())
+end // 
+delimiter ;
+
+call p2();
+
+python 中调用
+cursor.callproc('p2')
+print(cursor.fetchall())
+--------------------------------------------------
+创建存储过程(有参)
+in 仅用于传入参数用
+out 仅用于返回值用
+inout 即可以传入又可以当作返回值
+
+in: 传入参数:
+delimiter // 声明
+create procedure p3( in n1 int,  in n2 int)
+begin 
+	select * from blog where id>n1;  直接应用变量
+end//
+
+delimiter ;
+
+call p3(3,2)  mysql中调用
+
+Python 中  pymysql调用
+cursor.callproc('p3',(3,2))
+print(cursor.fetchall())
+------------------------------------------------------
+out 返回值
+delimiter //
+create procedure p5(out n1 int ,out n2 int)
+begin
+	select * from emp where id>n1;
+	set n1 = 2
+end//
+
+delimiter ;
+
+
+set @res = 0;
+call p5(@res,3)
+
+select @res;  看下结果变没变
+
+
+
+python中 pymysql
+cursor.callproc('p5',(3,0)) pymysql帮你写了 @_p5_0 = 3,@_p5_1=0  
+
+
+print(cursor.fetchall())
+
+cursor.execute('select @_p5_0,@_p5_1')   返回值执行里面sql语句
+print(cursor.fetchall())
+
+cursor.close()
+conn.close()
+
+存储过程在哪个库里面建的,就只能在哪个库里面用
+-------------------------------------------------------
+inout 既可以传入又可以当返回值
+delimiter //
+create procedure p4( inout n1 int )
+begin
+	select * from bolg where id>n1;
+	set n1 = 1;
+end//
+
+delimiter ;
+set @x=3;
+call p4(@x);
+select @x;
+
+
+python的pymysql中
+cursor.callproc('p4',(3))
+print(cursor.fetchall())
+
+cursor.execute('select @_p4_0;')
+print(cursor.fetchall())
+--------------------------------------------------
+
+执行存储过程
+
+无参数
+call proc_name()
+
+有参数,全in
+call proc_name(1,2)
+
+有参数 有in out inout
+set @t1 = 0;
+set @t2 = 3;
+call proc_name(1,2,@t1,@t2)
+
+执行存储过程
+
+
+
+python 中pymysql来执行存储过程
+
+
+
+import pymysql
+
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='123', db='t1')
+cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+# 执行存储过程
+cursor.callproc('p1', args=(1, 22, 3, 4))
+# 获取执行完存储的参数
+cursor.execute("select @_p1_0,@_p1_1,@_p1_2,@_p1_3")
+result = cursor.fetchall()
+
+#conn.commit()
+cursor.close()
+conn.close()
+
+
+print(result)
+
+
+------------------------------
+删除存储过程
+drop procedure proce_name;
+-------------------
+函数 
+now() 返回当前的日期和时间
+year() 返回日期 date 的年份
+week() 返回 date 为一年 中第几周(0~53)
+month() 返回月份 (1~12)
+avg()
+sum()
+min()
+max()
+group_concat() 返回属于一组的列值连接组合而成的结果
+
+
+
+
+
+
+
+更多链接:https://www.cnblogs.com/clschao/articles/10034539.html#_label1

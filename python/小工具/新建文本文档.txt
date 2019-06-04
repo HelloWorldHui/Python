@@ -1,0 +1,3 @@
+navicat
+everything
+anaconda

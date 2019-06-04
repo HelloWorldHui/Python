@@ -1,0 +1,55 @@
+# from selenium import webdriver
+# import time
+#
+# # phantoJS 无界面
+# # phantomJS路径
+# path = r'G:\phantomjs-2.1.1-windows\bin\phantomjs'
+# browser = webdriver.PhantomJS(path)
+# url = 'http://www.baidu.com/'
+#
+# browser.get(url)
+# time.sleep(1)
+# browser.save_screenshot('baidu.png')
+# search = browser.find_element_by_id('kw')
+# search.send_keys('风景')
+# browser.save_screenshot('scenery.png')  # 截屏
+# time.sleep(3)
+#
+# browser.find_element_by_id('su').click()
+# time.sleep(3)
+# browser.save_screenshot('show.png')
+# time.sleep(1)
+# browser.quit()
+
+################################################ 案例 ##########################################################
+from selenium import webdriver
+from time import sleep
+
+if __name__ == '__main__':
+    path = r'G:\phantomjs-2.1.1-windows\bin\phantomjs'
+    # 发起请求前, 可以让url表示的页面动态加载出 更多的数据
+    url = 'https://movie.douban.com/typerank?type_name=%E6%81%90%E6%80%96&type=20&interval_id=100:90&action='
+    # 创建无界面的浏览器对象
+    browser = webdriver.PhantomJS(path)
+    # 发起url请求
+    browser.get(url)
+    sleep(2)
+    # 截图
+    browser.save_screenshot('1.png')
+
+    # 执行js代码（让滚动条向下偏移n个像素（作用：动态加载了更多的电影信息））
+    js = 'window.scrollTo(0,document.body.scrollHeight)'
+    browser.execute_script(js)  # 该函数可以执行一组字符串形式的js代码
+    sleep(2)
+
+    browser.execute_script(js)
+    sleep(2)
+
+    browser.save_screenshot('2.png')
+    sleep(2)
+
+    # 使用爬虫程序爬去当前url中的内容
+    html_source = browser.page_source  # 该属性可以获取当前浏览器的当前页的源码（html）
+    with open('movie.html','w',encoding='utf8') as f:
+        f.write(html_source)
+    browser.quit()

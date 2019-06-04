@@ -1,0 +1,63 @@
+﻿
+1 Web应用			1	
+https://www.cnblogs.com/yuanchenqi/articles/8869302.html
+2 
+
+http协议:
+			2	https://www.cnblogs.com/yuanchenqi/articles/8875623.html
+3 
+
+web框架				3	
+https://www.cnblogs.com/yuanchenqi/articles/8946917.html
+4 
+
+Django简介	
+		4	https://www.cnblogs.com/yuanchenqi/articles/8875659.html
+5 
+
+Django的路由控制		5	
+https://www.cnblogs.com/yuanchenqi/articles/8931472.html
+6 
+
+Django的视图层			6	
+https://www.cnblogs.com/yuanchenqi/articles/8876856.html
+7 
+
+Django的模板层			7	
+https://www.cnblogs.com/yuanchenqi/articles/8876892.html
+8 
+
+Django的模型层(1)		8	
+https://www.cnblogs.com/yuanchenqi/articles/8933283.html
+9 
+
+Django的模型层(2)		9	
+https://www.cnblogs.com/yuanchenqi/articles/8963244.html
+10 
+
+Django与Ajax			0	
+https://www.cnblogs.com/yuanchenqi/articles/9070966.html
+11 
+
+Django组件之分页器		1	
+https://www.cnblogs.com/yuanchenqi/articles/9036515.html
+12
+ 
+Django组件之forms组件		2	
+https://www.cnblogs.com/yuanchenqi/articles/9036474.html
+13 
+
+Django组件之cookie与session组件
+	3	https://www.cnblogs.com/yuanchenqi/articles/9036467.html
+14 
+
+Django组件之用户认证组件	4	
+https://www.cnblogs.com/yuanchenqi/articles/9064397.html
+15 
+
+Django组件之中间件
+		5	https://www.cnblogs.com/yuanchenqi/articles/9036479.html
+
+
+
+Django组件 admin              https://www.cnblogs.com/yuanchenqi/articles/8323452.html

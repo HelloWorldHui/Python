@@ -1,0 +1,147 @@
+# SQL：=,!=,>,<,>=,<=
+
+# MongoDB：{key:value}代表什么等于什么,"$ne","$gt","$lt","gte","lte",其中"$ne"能用于所有数据类型
+gt 	大于
+gte 	大于等于
+lt	小于
+lte	小于等于
+ne	取反
+
+#1、select * from db1.user where name = "alex";  #名字为 alex
+db.user.find({'name':'alex'})
+
+#2、select * from db1.user where name != "alex";   # 名字不是 alex 
+db.user.find({'name':{"$ne":'alex'}})
+
+#3、select * from db1.user where id > 2;    # id大于2   gte lt lte ne
+db.user.find({'_id':{'$gt':2}})
+
+
+###################### (2) 逻辑运算  ###################################
+# SQL：and，or，not
+# MongoDB：字典中逗号分隔的多个条件是and关系，"$or"的条件放到[]内,"$not"
+
+
+
+#1、select * from db1.user where id >= 2 and id < 4;
+db.user.find({'_id':{"$gte":2,"$lt":4}})
+
+#2、select * from db1.user where id >= 2 and age < 40;
+db.user.find({"_id":{"$gte":2},"age":{"$lt":40}}
+
+
+#3、select * from db1.user where id >= 5 or name = "alex";
+db.user.find({
+    "$or":[
+        {'_id':{"$gte":5}},
+        {"name":"alex"}
+        ]
+})
+
+
+
+#4、select * from db1.user where id % 2=1;
+db.user.find({'_id':{"$mod":[2,1]}})
+
+#5、上题，取反
+db.user.find({'_id':{"$not":{"$mod":[2,1]}}})
+
+###################### (3) 成员运算  ###################################
+ 
+# SQL：in，not in
+# MongoDB："$in","$nin"
+
+
+#1、select * from db1.user where age in (20,30,31);
+db.user.find({"age":{"$in":[20,30,31]}})
+
+#2、select * from db1.user where name not in ('alex','yuanhao');
+db.user.find({"name":{"$nin":['alex','yuanhao']}})
+
+
+###################### (4) 正则匹配  ###################################
+ 
+# SQL: regexp 正则
+# MongoDB: /正则表达/i
+ 
+#1、select * from db1.user where name regexp '^j.*?(g|n)$';
+db.user.find({'name':/^j.*?(g|n)$/i})
+
+
+
+###################### (5) 取指定字段  ###################################
+1只显示 0不显示这些 _id特例
+
+ 
+#1、select name,age from db1.user where id=3;
+db.user.find({'_id':3},{'name':1,'age':1})
+#2 db.user.find({'_id':3},{"addr":0})
+{ "_id" : 3, "name" : "yuanhao", "age" : 30, "hobbies" : [ "music", "drink" ] }
+
+###################### (6) 查询数组  ###################################
+ 
+#1、查看有dancing爱好的人
+db.user.find({'hobbies':'dancing'})
+ 
+
+$all
+#2、查看既有dancing爱好又有tea爱好的人
+db.user.find({
+    'hobbies':{
+        "$all":['dancing','tea']
+        }
+})
+
+
+#3、查看第4个爱好为tea的人
+db.user.find({"hobbies.3":'tea'})
+
+#4、查看所有人最后两个爱好
+db.user.find({},{'hobbies':{"$slice":-2},"age":0,"_id":0,"name":0,"addr":0})
+ 
+#5、查看所有人的第2个到第3个爱好
+db.user.find({},{'hobbies':{"$slice":[1,2]},"age":0,"_id":0,"name":0,"addr":0})
+
+###################### (7) 排序  ###################################
+ 
+# 排序 1代表升序，-1代表降序
+db.user.find().sort({"name":1,})
+db.user.find().sort({"age":-1,'_id':1})
+
+
+
+###################### (8) 分页  ###################################
+ 
+# 分页:--limit代表取多少个document，skip代表跳过前多少个document。
+db.user.find().sort({'age':1}).limit(1).skip(2)
+
+###################### (9) 查询数量  ###################################
+# 获取数量
+db.user.count({'age':{"$gt":30}})
+
+--或者
+db.user.find({'age':{"$gt":30}}).count()
+
+###################### (10) 其它  ###################################
+ 
+#1、{'key':null} 匹配key的值为null或者没有这个key
+db.t2.insert({'a':10,'b':111})
+db.t2.insert({'a':20})
+db.t2.insert({'b':null})
+ 
+> db.t2.find({"b":null})
+{ "_id" : ObjectId("5a5cc2a7c1b4645aad959e5a"), "a" : 20 }
+{ "_id" : ObjectId("5a5cc2a8c1b4645aad959e5b"), "b" : null }
+ 
+#2、查找所有
+db.user.find() #等同于db.user.find({})
+db.user.find().pretty()
+ 
+#3、查找一个，与find用法一致，只是只取匹配成功的第一个
+db.user.findOne({"_id":{"$gt":3}})　
+
+
+
+
+
+

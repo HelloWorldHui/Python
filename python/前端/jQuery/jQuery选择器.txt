@@ -1,0 +1,63 @@
+ // $(selector).action()     jQuery语法
+    // 一:基本选择器和筛选器
+    // $('*').css('color','red');   //所有
+    // $('.c1').css('color','red');  //c1类
+    // $('.c1').next().css('color','red'); //c1类的下层
+
+    // $('.cc').css('color','blue');  //所有cc类
+    // $('.cc:first').css('color','rgba(0,0,0)'); //cc类的第一个
+    // $('.cc:last').css('color','aqua'); //最后一个
+    // $('.cc:eq(3)').css('color','blue') //索引为3
+
+    // $('.cc:even').css('color','red') //索引为偶数
+    // $('.cc:odd').css('color','aqua')// 索引为奇数
+    // $('.cc').next().css('color','red') //所有cc类的下一个
+
+    // $('.cc:gt(2)').css('color','aqua') // 大于2 的索引  不取2
+    // $('.cc:lt(2)').css('color','aqua') //小于2 的索引  不取2
+    // $('.cc[hui]').css('color','aqua') ; // cc类 hui属性
+    // $("[hui='123'][abc]").css('color','red') //属性hui='123' abc *******
+    // $('[type="checkbox"]').attr('checked','checked'); //全选中
+    // $(':checkbox').attr('checked','checked')  //同上
+
+    // 二进阶筛选器
+    // $('.a1[type="checkbox"]').attr('checked','checked') #a1类 中的复选框
+    // var index = 3;
+    // // $('.cc:eq(index)').css('color','red');   XXXXXXXXXXXXXXXXXX
+    // // $('.cc'+":eq("+index+")").css('color','red');ccccccccc
+    // $('.cc:eq(4)').css('color','red');  //cc类中索引为四
+    // $('.cc').eq(index).css('color','aqua');//cc类中索引为 index值
+    // $('.cc').first().css('color','blue'); //***cc类中第一个
+
+    // 判断某个标签是否拥有某个class名
+    // console.log($('#i1').hasClass('c8'));
+    // console.log($('[hui]').hasClass('c9')); // or 有2个hui标签,只要有一个就是true
+
+    // 三导航选择器
+    // 查找兄弟标签
+    // $('#i1').next().css('color','blue') //找到id='i1'的下一个标签 不包括自己
+    // $('.c1').nextAll().css('color','red')//找到c1下面所有的兄弟 不包括自己
+    // $('.c1').nextUntil('.c4').css('color','aqua')//从c1类到c4类 中间的 不包括c1 c4
+
+    // $('#i2').prev().css('color','blue') //找到i2 的上一个兄弟
+    // $('.c3').prevAll().css('color','red')//找到类c3 上面所有的兄弟
+    // $('.c4').prevUntil('.c1').css('color','aqua') // c5 到c3 不包括前后都
+
+    // *****************
+    // $('.c1').siblings().css('color','red') //找到c1中所有的兄弟不包括自己
+
+    // 查找子孙标签
+    // $('.f1').children().css('color','aqua'); //查找所有的子孙
+    // $('.f1').children(':first').css('color','aqua') //查找第一个儿子和第一个儿子的孙子
+    // $('.f1').children().first().css('color','blue');//同上
+
+    // $('.f1').children().last().css('color','aqua'); //最后一个儿子中的所有(儿子,孙子)
+    // $('.f1').children('.c4').css('color','red') ; //f1 中 .c4这个儿子
+
+    // $('.f1').children('.sz').css('color','red'); //不能找到孙子 xxxxxxxxxxxxxx
+    // $('.f1').find('.sz').css('color','red') ;//能找到孙子及孙子下的所有  *****
+
+    // 查找父标签
+    // $('.c1').parent().css('color','red'); //找到c1的父级
+    // $('.c1').parents().css('color','blue'); // 找到c1 的祖父及上上
+    // $('.zs').parentsUntil('.c1').css('color','blue')//

@@ -1,0 +1,275 @@
+﻿一：
+	1 由字母，下划线，数字组成
+	2 不能数字开头，
+	3 要有意义
+	4 不要太长
+	5 要区分大小写
+	6 不要用中文
+	7 不能是python关键字
+
+	推荐：
+	大写首字母
+	下划线
+
+	约定俗成
+	所有大写字母都是常量
+#单行
+"""多行"""
+--------------------------------------------
+
+二
+num = 1
+sum = 0 
+while num<=100:
+	sum += num
+	num += 1
+print(sum)
+
+'''
+and 并且 只有左右端都为真才为真，有一个是假结果就是假
+or 或者 左右端有一个是真 结果就是真，这有两个都为假结果才为假
+not 取反 非真即假，非假即真
+
+continue 停止当前本次循环，并进行下次循环
+break 彻底打断当前本次循环
+'''
+------------------------------------------------------------------
+
+三
+s = input('输入内容:')
+index = 0
+while index < len(s):
+	print(s[index])
+	index += 1
+
+s = input('输入内容:')
+for i in s:
+	print(i)
+------------------------------------------------
+
+四
+li = [1,2,3,4,'Alex',5,[1,2,3,4,'ABC'],'Cba']
+for i in li:
+	if type(i) = list:
+		for c in type(i):
+			if type(c) = str:
+				c = c.lower()
+			print(c)
+	else:
+		if type(i) = str:
+			i = i.lower()
+		print(i)
+
+增#
+''''''
+appen(元素) #添加到末尾
+inser(index,元素)#插入到索引对应的位置
+extend(迭代对象)#迭代添加
+#删
+#pop(),默认删除最后一个,可以指定索引位置
+#remove(元素),删除指定元素
+#del 切片 切片删除
+#clear  清空列表
+
+改
+通过索引值修改
+
+查
+for i in 列表:
+for i in range(len(列表)):
+
+------------------------------------------------------------------
+
+五
+字典的增删改查
+增
+dic[key] = value
+setdefault = (key,value)
+
+删
+pop(key)
+popitem()
+clear()
+def dic(key)
+
+改
+dic[key] = value
+dic.update(dic2)
+
+查
+dic[key]
+dic.get(key)
+ret = dic.setdefault()
+======================
+li = ['苍老师','波多野结衣']
+l = []
+comment = input('输入评论>>>')
+for i in li:
+	if i in comment:
+		comment = comment.replace(i,'*'*len(i))
+l.append(comment)
+print(l)
+------------------------------------------------------------------------
+
+六
+is 判断内存地址是否一致
+== 判断内容是否一致
+s = '文字'
+bs = s.encode('gbk')
+print(bs)
+s = bs.decode("gbk")
+print(s)
+bss = s.encode("utf-8")
+print(bss)
+-----------------------------------------------------------------------
+
+七
+# 浅拷贝:copy() [:] 拷贝对象第一层内容
+a = [1,2,3,[1,2,]]
+b = a.copy()
+print(b)
+# 深拷贝:
+import copy
+# copy.deepcopy()
+b = copy.deepcopy(a)
+print(b)
+# 把对象内部所有内容都拷贝一份
+
+li = ['周a','周b','周c','王d']
+new_li = []
+for c  in li:
+	if c[0] == '周':
+		new_li.append(c)
+for i in new_li:
+	li.remove(i)
+print(new_li)
+-----------------------------------------------------------------------
+
+八
+# import os
+# with open('文件名',mode='r',encoding='utf-8') as f1,\
+#     open('文件名副本',mode='w',encoding='utf-8') as f2:
+#     for i in f1:
+#         l = i.replace('alex','xxx')
+#         f2.write(l)
+# os.remove('文件名')
+# os.rename('文件名副本','文件名')
+--------------------------------------------------
+
+九
+return 终止函数的运行
+返回值返回给调用者,默认返回None
+
+def fun(a,b): #位置参数
+	print(a,b)
+fun(1,2)
+
+def fun(a,b): #关键字参数
+	print(a,b)
+fun(b=2,a=2)
+
+def fun(a,b,c):#混合参数
+	print(a,b,c)
+fun(1,c=3,b=2)
+-----------------------------------------------------
+
+十
+
+一.形参的接收顺序 　　
+
+　　　　1 位置>*args>默认参数>**kwargs
+
+　　二.
+
+　　命名空间:我们的变量在储存的时候就是储存在这片空间中
+　　全局命名空间: 我们直接在py文件中,函数外声明的变量都属于全局命名空间
+　　局部命名空间: 在函数中声明的变量会放在局部命名空间
+　　　　内置命名空间: 存放python解释器为我们提供的名字,list,tuple,str,int这些都是内置命名空间
+　　三.
+　　　　全局作用域: 全局命名空间 + 内置命名空间
+　　　　局部作用域: 局部命名空间
+　　四.名称空间的加载顺序,取值顺序
+　　　　加载顺序:1内置命名空间  2全局命名空间  3局部命名空间(函数被执行的时候)
+　　　　取值顺序: 1局部命名空间 2全局命名空间  3内置命名空间
+　　五:
+　　　　global表示不再使用局部作用域的内容了,而改用全局作用域中的变量
+　　　　nonlocal表示在局部作用域中,调用父级命名空间中的变量
+------------------------------
+十一    
+闭包就是内层函数对外层函数(非全局)的变量的引用叫闭包.       闭包
+节省内存   惰性机制  不能反复只能向下执行  ********************迭代器特点
+# for 循环内部
+# lis=[1,2,3,4,5,6]
+# it = lis.__iter__()
+# while 1 :
+#     try:
+#         print(it.__next__())
+#     except StopIteration:
+#         break
+=============================
+十五
+面向对象:一切以对象为中心  类:类是对事物的总结,用来描述对象.  对象:python一切皆为对象
+创建类 class 类名():
+		pass
+3  __init__构造方法 ,创建对象的时候
+4  封装 把很多数据封装到一个对象中,  继承:子类继承父类除私有内容外的其他所有内容, 多态:一个对象多种形态
+
+==========================
+十七
+十五个类的特殊成员
+1. 类名() 会⾃动执⾏__init__()
+
+2. 对象() 会⾃动执⾏__call__()
+
+3. 对象[key] 会⾃动执⾏__getitem__()
+
+4. 对象[key] = value 会⾃动执⾏__setitem__()
+
+5. del 对象[key] 会⾃动执⾏ __delitem__()
+
+6. 对象+对象 会⾃动执⾏ __add__()
+
+7. with 对象 as 变量量 会⾃动执⾏__enter__ 和__exit__
+
+8. 打印对象的时候 会⾃动执⾏ __str__
+
+9. ⼲干掉可哈希 __hash__ == None 对象就不可哈希了了.
+
+10. __lt__  小于
+
+11. __le__小于等于
+
+12. __gt__ 大于
+
+13. __ge__大于等于
+
+14. __iter__ for 循环
+
+15. __len__  len()
+=====================
+19. 什么是类. 什么是对象  类对某些事物的总结,万事万物皆为对象
+	2. 类的成员 方法 字段 属性 特殊方法
+	3. 函数中 * 和** 分别是用来做什么的?其中*用来表示接受一个元组(tuple)，**用来表示字典，根据其结果的打印形式可以看出。
+	4. 面向对象的三个特征.封装 继承 多态
+===================================
+21
+import time
+print(time.time())
+j = time.gmtime(time.time())
+g = time.strftime('%Y-%m-%d %H:%M:%S',j)
+print(j)
+print(g)
+print('********')
+jg = time.strptime(g,'%Y-%m-%d %H:%M:%S')
+shijiechuo = time.mktime(jg)
+print(jg)
+print(shijiechuo)
+
+======================
+22
+import json
+dic = {'我':123}
+s = json.dumps(dic,ensure_ascii=False)
+d = json.loads(s)
+print(type(s))
+print(type(d))

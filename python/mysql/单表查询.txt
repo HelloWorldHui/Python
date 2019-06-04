@@ -1,0 +1,30 @@
+select * from 表名;
+where 条件
+group by 字段; 分组
+having 筛选
+order by 字段; 排序
+limit 限制条数
+
+
+
+优先级
+from 从
+where 条件
+group by 分组
+having	过滤
+select 执行
+distinct 去重
+order by 排序
+limit 限制条数
+
+
+聚合函数
+count() 计数
+max() 最大值
+min() 最小值
+avg()平均值
+sum()求和
+
+
+exists表示存在 select * from emp where exists(select id from dep where id =2000);
+

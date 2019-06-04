@@ -1,0 +1,16 @@
+import socket
+server = socket.socket()
+server.bind(('127.0.0.1',8080))
+server.listen(5)
+
+conn,addre = server.accept()
+
+while 1 :
+	msg = conn.recv(1024).decode('utf8')
+	print(msg)
+	if msg == '88':
+		break
+	c = input('ÊäÈëÄÚÈİ:')
+	conn.send(c.encode('utf8'))
+conn.close()
+server.close()

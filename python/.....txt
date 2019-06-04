@@ -1,0 +1,157 @@
+
+PEP8 规范
+每个缩进级别使用4个空格。
+
+将所有行限制为最多79个字符。
+
+
+
+Yes: import os
+     import sys
+
+No:  import sys, os
+
+
+---------------------
+常用内置函数
+getattr()  hasattr()  print() min()  tuple()  set()
+setattr()  delattr()  max()   rang() list()  dist() 
+-----------------------------
+# 五中模块  
+import os             		 sys
+				pickle
+os.path				logging
+os.pardir
+os.path.join()
+os.path.dirname()
+
+import re
+re.search()
+re.findall()
+re.match()
+re.finditer()
+
+import time
+time.time()
+time.sleep()
+time.gmtime()
+time.localtime()
+
+import random
+random.random
+random.randrange
+random.randint
+random.choices
+
+import json
+json.loads()
+json.dumps()
+json.load()
+json.dump()
+--------------------------------------------------------
+yield  yield from 
+
+sort 与 sorted 区别：
+
+sort 是应用在 list 上的方法，属于列表的成员方法，sorted 可以对所有可迭代的对象进行排序操作。
+list 的 sort 方法返回的是对已经存在的列表进行操作，而内建函数 sorted 方法返回的是一个新的 list，而不是在原来的基础上进行的操作。
+sort使用方法为ls.sort()，而sorted使用方法为sorted(ls)
+-----------------------------------------------------------------
+*args 表示任何多个无名参数，它是一个tuple；**kwargs 表示关键字参数，它是一个dict。
+----------------------------------------------------------
+class Parent(object):
+    x = 1
+class Child1(Parent):
+    pass
+class Child2(Parent):
+    pass
+
+
+print(Child1.x,Child2.x,Parent.x)
+# 1 1 1
+
+Child1.x = 2
+print(Child1.x,Child2.x,Parent.x)
+# 2 1 1
+
+Child2.x = 3
+print(Child1.x,Child2.x,Parent.x)
+# 2 3 1
+----------------------------------------------------------------
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+# 设置对象的属性
+class animal():
+    def __init__(self,zhonglei,name):
+        self.zhonglei = zhonglei
+        self.__name = name
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def setname(self,name):
+        self.__name = name
+
+a = animal('dog','xiaohua')
+print(a.name)
+print(getattr(a,'name'))
+
+setattr(a,'setname','xiaohuang')
+print(getattr(a,'name'))
+------------------------------------------------------------
+关于html与css中隐藏一个元素的几种方法
+1，将元素的display属性设为none
+
+
+<div style="display:none">看不见我</div>
+2，<input>标签元素的type属性设为hidden
+
+
+<input type="hidden" name="看不见我">
+3，将元素的width和heigth都设为0
+
+
+<div style=“width：0；heigth：0；background-color：red”>标签被隐藏但能看见我</div>
+4，元素的祖先元素是隐藏的，该元素是不显示的
+
+
+<div style="display: none;">
+    <div>看不见我</div>
+    <div>看不见我</div>
+  </div>
+5，将visibility设为hidden（  visibility属性指定一个元素是否是可见的，即使不可见的元素也会占据页面上的空间）
+
+
+h1 {visibility:hidden}
+
+6，将opacity设为0 （ Opacity属性设置一个元素了透明度级别，从0.0（完全透明）到1.0（完全不透明））
+
+
+div{opacity:0;}
+
+---------------------------------------------------------------
+padding:1px 2px 3px 4px; 这个写法意思是：上为1px，右为2px，下为3px，左为4px
+-----------------------------------------------------------------------
+dic = {
+	'key':''
+}
+
+get('key',default)
+
+字典有key就不会取 default 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

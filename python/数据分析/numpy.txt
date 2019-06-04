@@ -1,0 +1,195 @@
+import numpy as np
+
+#一维数据创建
+a = np.array([1,2,3,4,5]
+
+# 二维数组创建
+a1 = np.array([[1,2,3],[4,5,6]])
+
+numpy默认ndarray(多维数组)的所有元素的类型是相同的
+优先级 str>float>int
+
+
+==================================
+使用matplotlib.pyplot获取一个numpy数组，数据来源于一张图片
+import matplotlib.pyplot as plt
+
+img_arr = plt.imread('./bobo.jpg') #读取图片
+plt.imshow(new_img_arr) # 展示图片
+=====================================
+
+img_arr.dtype  # 数组元素 类型 int
+type(img_arr)  # 数组类型 ndarray
+
+img_arr.shape  # 几行 几列
+img_arr.size   # 返回大小
+
+np.linspace(1,100,20)  # 1-100 20份
+
+np.arange(0,100,2) # 0-100 2间隔
+
+img_arr.ndim  # 维度
+
+=========
+1) np.ones(shape, dtype=None, order='C')
+2) np.zeros(shape, dtype=None, order='C')
+3) np.full(shape, fill_value, dtype=None, order='C')
+5) np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None) 等差数列
+6) np.arange([start, ]stop, [step, ]dtype=None)
+7) np.random.randint(low, high=None, size=None, dtype='l')
+8) np.random.randn(d0, d1, ..., dn)  
+9) np.random.random(size=None)
+
+生成0到1的随机数，左闭右开 np.random.seed(3)
+标准正太分布
+===========
+  ndarray的属性
+4个必记参数：
+
+ndim：维度
+shape：形状（各维度的长度）
+size：总长度
+
+dtype：元素类型
+================
+--------------------三 ndarray的基本操作---------------------
+
+ 1. 索引
+一维与列表完全一致
+多维时同理
+arr[1][3] = 10000
+
+2. 切片
+一维与列表完全一致
+多维时同理
+
+arr[:,0:2] # 获取前两列
+arr[0:2,0:2] #前两行的前前两列
+arr[::-1]  #将数组的行倒序
+a = img_arr[::-1,::-1,::-1]
+
+3. 变形
+使用arr.reshape()函数，注意参数是一个tuple！
+
+arr_1.reshape((25,1))  # 1.将一维数组变形成多维数组
+
+arr_1 = arr.reshape((25)) # 2.将多维数组变形成一维数组
+
+arr_1.reshape((-1,5))  #-1表示自动计算行数
+
+================
+图片倒置
+img_arr.shape
+
+#将元数据变形成一维
+img_arr_one_ndim = img_arr.reshape((626*413*3))
+
+#将变形后的一维数组中的元素全部倒置
+img_arr_one_ndim = img_arr_one_ndim[::-1]
+
+#
+arr_img_finally = img_arr_one_ndim.reshape((626,413,3))
+
+================
+4. 级联
+- np.concatenate()
+
+np.concatenate((arr,arr),axis=1)    #axis=0 纵轴  1横轴
+
+1.一维，二维，多维数组的级联，实际操作中级联多为二维数组
+
+
+照片九宫格
+three_arr = np.concatenate((img_arr,img_arr,img_arr),axis=1)
+nine_arr = np.concatenate((three_arr,three_arr,three_arr),axis=0)
+plt.imshow(nine_arr)
+
+
+3.np.hstack与np.vstack   ( hstack [1,2]  [2,3]  [1,2,2,3] )
+
+
+级联需要注意的点：
+- 级联的参数是列表：一定要加中括号或小括号
+- 维度必须相同
+- 形状相符:在维度保持一致的前提下，如果进行横向（axis=1）级联，必须保证进行级联的数组行数保持一致。如果进行纵向（axis=0）级联，必须保证进行级联的数组列数保持一致。
+- 可通过axis参数改变级联的方向
+
+=====
+5. 切分
+与级联类似，三个函数完成切分工作：
+- np.split(arr,行／列号，轴):参数2是一个列表类型
+- np.vsplit
+- np.hsplit
+
+
+6. 副本
+所有赋值运算不会为ndarray的任何元素创建副本。对赋值后的对象的操作也对原来的对象生效。
+arr_= arr.copy()
+
+-------------------  四、ndarray的聚合操作   ------------------
+
+1. 求和np.sum
+arr.sum(axis=1)  # 求每一行的和
+
+2. 最大最小值：np.max/ np.min
+同理
+
+3.平均值：np.mean()
+arr.std(axis=0) #方差
+
+
+3. 其他聚合操作
+    Function Name	NaN-safe Version	Description
+    np.sum	np.nansum	Compute sum of elements
+    np.prod	np.nanprod	Compute product of elements
+    np.mean	np.nanmean	Compute mean of elements
+    np.std	np.nanstd	Compute standard deviation
+    np.var	np.nanvar	Compute variance
+    np.min	np.nanmin	Find minimum value
+    np.max	np.nanmax	Find maximum value
+    np.argmin	np.nanargmin	Find index of minimum value
+    np.argmax	np.nanargmax	Find index of maximum value
+    np.median	np.nanmedian	Compute median of elements
+    np.percentile	np.nanpercentile	Compute rank-based statistics of elements
+    np.any	N/A	Evaluate whether any elements are true
+    np.all	N/A	Evaluate whether all elements are true
+    np.power 幂运算
+
+
+------------------ 五 广播机制 --------------------
+
+
+
+【重要】ndarray广播机制的三条规则:缺失维度的数组将维度补充为进行运算的数组的维度。缺失的数组元素使用已有元素进行补充。
+- 规则一：为缺失的维度补1(进行运算的两个数组之间的维度只能相差一个维度)
+- 规则二：缺失元素用已有值填充
+- 规则三：缺失维度的数组只能有一行或者一列
+
+m = np.ones((2, 3))\
+array([[1., 1., 1.],
+       [1., 1., 1.]])
+
+a = np.arange(3)
+array([0, 1, 2])
+
+m+a 		***
+array([[1., 2., 3.],
+       [1., 2., 3.]])
+
+
+----------------- 六ndarray 的排序  -----------------
+
+1. 快速排序
+np.sort()与ndarray.sort()都可以，但有区别：
+
+np.sort()不改变输入
+ndarray.sort()本地处理，不占用空间，但改变输入
+
+np.sort(arr,axis=1) 不改变值
+
+arr.sort(axis=1)  原基础上改动
+
+
+
+
+

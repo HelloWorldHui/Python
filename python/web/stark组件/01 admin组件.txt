@@ -1,0 +1,140 @@
+ 3 基于二级分发设计url路由
+                       path('index/', views.index),
+                       path('index/',([
+                              path('test01/', test01),
+                              path('test02/', test02),
+                                   ],None,None)),
+                                   
+                                   
+                                   
+                         # 二级分发
+
+                        path('index/',([
+                                      path('name/', ([
+                                                       path('alex/', test01),
+                                                       path('egon/', test02),
+                                                       ],None,None)),
+                                      path('shop/', ([
+                                                         path('apple/',  test03),
+                                                         path('xiaomi/', test04),
+                                                         path('huawei/', test05),
+                                                       ],None,None)),
+                                           ],None,None)),             
+
+
+                补充知识点:
+                        Book._meta.model_name
+                        'book'
+                        Book._meta.app_label
+                        'app01'
+
+
+
+
+
+
+admin是一个Django封装好的app
+	     查:http://127.0.0.1:8000/admin/app01/publish/
+             增:http://127.0.0.1:8000/admin/app01/publish/add/
+             改:http://127.0.0.1:8000/admin/app01/publish/1/change/
+             删:http://127.0.0.1:8000/admin/app01/publish/1/delete/
+
+
+
+
+
+ 应用:
+                class PublishConfig(admin.ModelAdmin):
+                    list_display=["name",'city',"email"]
+
+                class BookConfig(admin.ModelAdmin):
+
+                    def show_authors(self,obj):
+                        print(obj.authors.all())
+                        return ",".join([obj.name for obj in obj.authors.all()])
+
+
+                    list_display=["title",'price','pub_date',"publish","show_authors"]
+                    list_display_links=["price","publish"]
+                    list_filter=["publish","authors"]
+                    search_fields = ["title","price"]
+                    list_editable=["title"]
+                    #change_list_template="mylist.html"
+                    ordering=["-price"]
+
+                    def patch_init(self,request,queryset):
+                        queryset.update(price=100)
+                    patch_init.short_description = "批量初始化"
+
+                    actions=[patch_init,]
+
+
+                admin.site.register(Book,BookConfig)
+                admin.site.register(Publish,PublishConfig)
+                admin.site.register(Author)
+                admin.site.register(AuthorDetail)  
+
+admin源码解析:
+                1 启动所有app下的admin.py文件
+                        autodiscover_modules('admin', register_to=site)
+                2 注册模型类
+                
+                        admin.site: AdminSite的单例对象
+                        admin.site.register(Book,BookConfig)
+                        admin.site.register(Author)
+                        
+                        
+                        class ModelAdmin():
+                              pass
+                        
+                        
+                        class AdminSite():
+                             
+                             def __init():
+                                  self._registry = {}  # model_class class -> admin_class instance
+                             
+
+                            def register(self, model_or_iterable, admin_class=None):
+                                  admin_class = admin_class or ModelAdmin
+                                  self._registry[model] = admin_class(model, self)
+
+======================================================
+from django.conf.urls import url
+from django.contrib import admin
+你可以通过命令 python manage.py createsuperuser 来创建超级用户。
+
+
+单例
+class Singleton(object):
+    _instance = None
+    def __new__(cls, *args, **kw):
+        if not cls._instance:
+            cls._instance = super(Singleton, cls).__new__(cls, *args, **kw)  
+        return cls._instance  
+
+class MyClass(Singleton):  
+    a = 1
+===========================
+（2）使用模块
+其实，Python 的模块就是天然的单例模式，因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc 文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了。如果我们真的想要一个单例类，可以考虑这样做：
+
+# mysingleton.py
+class My_Singleton(object):
+    def foo(self):
+        pass
+ 
+my_singleton = My_Singleton()
+将上面的代码保存在文件 mysingleton.py 中，然后这样使用：
+
+from mysingleton import my_singleton
+ 
+my_singleton.foo()
+
+
+
+
+
+
+
+
+                                  

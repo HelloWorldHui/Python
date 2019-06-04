@@ -1,0 +1,24 @@
+
+在官网下载 node.js,下载完会自动安装一个npm包管理器,
+(可以不使用nvm,nvm可以使用多个版本node.js) 
+
+----------
+安装 Vue-CLI
+npm install -g vue-cli  #-g 表示安装到全局
+
+-=========
+
+新建一个项目
+vue init webpack 项目名
+
+vue init webpack myproject
+
+运行项目 
+cd myproject 
+npm run dev
+
+运行之后可以访问  localhost:8080
+==========
+
+
+

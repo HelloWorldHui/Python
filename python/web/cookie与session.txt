@@ -1,0 +1,19 @@
+
+
+
+cookie与session
+
+
+cookie
+
+    response.set_cookie()
+    request.COOKIES
+
+session
+    request.session["k1"]="v1"
+    request.session.get("k1")
+    request.session.flush()
+
+
+
+用户认证组件

@@ -1,0 +1,84 @@
+soup.find_all(name='a',attrs={'class':'xxx'},limit=2,recusive=False)
+
+
+from bs4 import BeautifulSoup
+# soup = BeautifulSoup(open('hello.html'),'lxml')  # 转化本地文件
+soup = BeautifulSoup(html_doc, "lxml")  # 转换网络文件
+
+筛选出的每一个都是 Tag对象
+soup.a # 找第一个
+type(soup.a) #<class 'bs4.element.Tag'>
+
+soup.a.attrs #获取 a所有的属性和属性值 返回一个字典
+ # {'href': 'http://example.com/elsie', 'class': ['sister'], 'id': 'link1'}
+
+
+跟字典取值差不多 
+
+soup.a.attrs['href']
+soup.a.get('class')
+简写 
+soup.a['class']
+
+
+#######################
+Tag对象的文本操作
+
+soup.a.get_text()
+soup.a.text  
+soup.a.string
+#【注意】如果标签还有标签，那么string获取到的结果为None，而其它两个，可以获取文本内容
+############################################   二   find，find_all()	#########
+find 返回的是第一个 Tag对象 
+find_all()  返回的列表  一个也是返回列表
+################## 2.1.1 name参数：四种name过滤器
+import re 
+def has_class_but_no_id(tag):
+	return tag.has_attr('class') and not tag.has_attr('id')
+
+soup.find_all(name='a')
+soup.find_all(name=['a','b'])
+soup.find_all(name=re.compile('^b'))
+soup.find_all(name=has_class_but_no_id)
+
+################## 2.1.2 属性参数
+
+soup.find_all(name='a',attrs={'class':'xxxx','id':'xxx'})
+
+
+简写
+soup.find_all(name='a',class_='xxx')
+soup.find_all(name='a',id='xxx')
+
+
+
+################## 2.1.3 文本参数
+
+soup.find_all(name='a',text='Hello World!')
+
+
+################## 2.1.4 limit参数
+soup.find_all(name='a',limit=2)
+
+	
+################## 2.1.5 recursive参数   默认 检索子孙 节点
+soup.find_all(name='a',recusive=False)   #只有检索 子节点
+
+############################ 2.2 find()
+# print(soup.find('a')) # 等同于 soup.a   # 只 找第一个
+# find 和find_all 的参数完全一样
+
+#################### 三 selector ##################################################
+#  这个selector等同于css选择器
+# print(soup.select('.sister')) #类选择器
+# print(soup.select('#link2'))  #id选择器
+# print(soup.select('body a'))  #子节点
+
+
+
+
+
+
+
+
+

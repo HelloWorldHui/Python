@@ -1,0 +1,4 @@
+local，本地的意识
+enclosing 封闭域
+built-in 内核加载的
+global 全局作用域

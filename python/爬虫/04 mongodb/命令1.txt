@@ -1,0 +1,34 @@
+use blog  #进入  没有也可以进入  (或创建)   (use blog 有就使用 没有就创建    db.userinfo 同理 创建集合)
+
+show dbs  # 展示数据库
+
+show tables # 展示 集合 (表)
+
+db.userinfo.insert({"name":'Hui'})  # 插入文档 (插入记录)  
+
+show dbs  # 
+
+db.dropDatabase() #删除库
+
+
+# 表 在MongoDB称之为"集合"  
+	记录称之为 "文档"
+
+####################### 集合操作 (     表)
+
+use blog    # 连接库
+ 
+db.userinfo.insert({'name':'hui'})  # 插入文档
+
+show tables # 展示集合 (表)
+
+db.userinfo.drop()  # 删除 集合
+
+show tables 
+##################### 
+# 添加文档
+
+推荐 使用
+db.user.insertOne({'a','b'})
+db.user.inserMany([{'a','b'},{'xxx':'xxx'},{'aaa':'ssss'}])
+
